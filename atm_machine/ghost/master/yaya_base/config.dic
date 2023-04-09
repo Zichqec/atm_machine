@@ -1,66 +1,53 @@
 /*---------------------------------------------------------------------------------------
- *  SHIORI/3.0 settings script for YAYA
+ *  SHIORI/3.0設定スクリプト for YAYA
  * --------------------------------------------------------------------------------------*/
 
 
 /*---------------------------------------------------------------------------------------
- *  Default values
+ *  初期設定値
  * --------------------------------------------------------------------------------------*/
 
-/* Settings related to AITalk -------------------------------------------------------------------------*/
+/* AIトーク関連 -------------------------------------------------------------------------*/
 /*
-TALK_INTERVAL	Talk interval default value [seconds]
-COM_RATIO		The rate of communication-starting talk for AITalk [%]
+TALK_INTERVAL	AIトーク間隔の初期値[秒]
+COM_RATIO		AIトーク中に占めるコミュニケート開始の割合[%]
 */
 #globaldefine	TALK_INTERVAL	180
 #globaldefine	COM_RATIO		0
 
 
-/* Settings related to installed ghost list creation -----------------------------------------------*/
+/* インストール済みゴーストリスト構築関連 -----------------------------------------------*/
 /*
 IGLIST_ACCEL
-	When the value is 1, if using SSP/CROW, the installed ghost list
-	will be created using NOTIFY installedghostname.
-	The sakura/kero name list will not be created, but the performance
-	speed will improve.
-	When the value is 0, the list is created with a file scan.
-	Having a large amount of ghosts installed will slow the process.
+	1にするとSSP/CROW時にはNOTIFY installedghostnameで
+	インストール済ゴーストリストを構築するようになります。
+	sakura/kero名リストは作成されませんが高速です
+	0だとファイル走査にて構築します。
+	インストール済みゴーストが多いと時間がかかります。
 
 IGLIST_MAX
-	Specifies the maximum number of ghosts to acquire information from
-	when creating the ghost list using a file scan.
-	When the value is -1, there will be no limit (acquires information
-	of all ghosts).
-	When 0, no information will be acquired.
+	ファイル走査にてゴーストリストを構築する際、取得する
+	数の上限を指定します。-1で制限なし（すべて取得）です。
+	0とすると取得しません。
 */
 #globaldefine	SHIORI3FW.IGLIST_ACCEL		1
 #globaldefine	SHIORI3FW.IGLIST_MAX		0
 
-/* Settings related to request analysis and response creation ---------------------------------------------------*/
+/* リクエスト解析・レスポンス構築関連 ---------------------------------------------------*/
 /*
-SHIORI3FW.REQUEST_LINES_LIMIT
-	Specifies the maximum number of lines to analyze in a request string.
-	Lower numbers will improve startup times and performance speed in
-	general, but it may cause issues with creating the full list of
-	installed ghosts.
-	When 0, all lines will be analyzed.
-
 SHIORI3FW.RES_REF_MAX
-	Upper limit for res_reference
+	res_referenceの上限
 
 SHIORI3FW.AUTO_DATA_CONVERT
-	When the value is 1, data will be processed in the same way as AYA5.
-	This includes automatically converting SAORI return value types and
-	automatically changing \0x01 to a comma.
-	When 0, those processes will not happen.
+	1にするとAYA5と同等の処理になります。
+	-SAORIの戻り値などの自動タイプ変換・自動的に\0x01をカンマにする等の処理が入ります。
+	0にするとそれらの処理を行いません。
 
 SHIORI3FW.REF_ACCEL
-	When the value is 1, variables such as reference0 will not be 
-	created, and information will need to be accessed in the form of 
-	reference[0]. Performance speed may improve slightly.
-	When 0, variables such as reference0 will be created (backward compatibility processing).
+	1にすると、reference0 といった変数を作成せず、reference[0] という形で
+	アクセスするようになります。若干のスピードアップが見込めます。
+	0にすると、reference0 といった変数を作成します（過去互換処理）
 */
-#globaldefine	SHIORI3FW.REQUEST_LINES_LIMIT	0
 #globaldefine	SHIORI3FW.RES_REF_MAX			32
 #globaldefine	SHIORI3FW.AUTO_DATA_CONVERT		0
 #globaldefine	SHIORI3FW.REF_ACCEL				0
