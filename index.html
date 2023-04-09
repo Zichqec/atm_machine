@@ -11,23 +11,10 @@ jsttp.set_sendername("GetUNYU");
 
 async function getMoney(amount) {
 	jsttp.NOTIFY({
-		'Event':'OnGetMoneySample',
+		'Event':'GetUNYU',
 		'Option':'nobreak',
-		'ID':await getID()
+		'ReceiverGhostName' : 'ATM',
 	});
-};
-async function getID() {
-	var result = await jsttp.EXECUTE({
-		'Command':'GetFMO'
-	});
-	//for each var and key in result
-	for (var key in result) {
-		if(key.endsWith('.name')) {
-			if(result[key] == 'ATM') {
-				return result[key.replace('.name','.hwnd')];
-			}
-		}
-	}
 };
 </script>
 <body>
