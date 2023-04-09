@@ -7,11 +7,11 @@
 <script src="https://cdn.jsdelivr.net/gh/ukatech/jsstp-lib@master/jsstp.min.js"></script>
 <script>
 "use strict";
-jsttp.set_sendername("GetUNYU");
+jsttp.set_sendername("OnGetMoneySample");
 
 async function getMoney(amount) {
 	jsttp.NOTIFY({
-		'Event':'GetUNYU',
+		'Event':'OnGetMoneySample',
 		'Option':'nobreak',
 		'ReceiverGhostName' : 'ATM',
 	});
@@ -20,9 +20,15 @@ async function getMoney(amount) {
 <body>
 	<h1>Get Money</h1>
 	<button onclick="getMoney(1);">GET 1 UNYU</button>
+	<p>This version made to target the ghost <a href="https://github.com/Zichqec/atm_machine">ATM Machine</a> in particular. Useful if you have multiple ghosts running at once!</p>
+	<p>With many thanks to <a href="https://github.com/nikolat">nikolat</a> and <a href="https://github.com/steve02081504">steve02081504</a>; the ghost is my code but this page is theirs.</p>
 	<h2>Download Wallet Plugin</h2>
 	<ul>
 		<li><a href="https://github.com/nikolat/wallet_of_unyu">GitHub</a> / <a href="https://github.com/nikolat/wallet_of_unyu/releases">Releases</a></li>
+	</ul>
+	<h2>Download ATM Machine Ghost</h2>
+	<ul>
+		<li><a href="https://github.com/Zichqec/atm_machine">GitHub</a> / <a href="https://github.com/Zichqec/atm_machine/releases">Releases</a></li>
 	</ul>
 </body>
 </html>
