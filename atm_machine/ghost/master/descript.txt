@@ -1,0 +1,14 @@
+charset,UTF-8
+
+name,ATM Machine
+type,ghost
+
+shiori,yaya.dll
+
+craftman,Zichqec
+craftmanurl,https://zichqec.github.io/s-the-skeleton/
+
+sakura.name,ATM
+kero.name,UNYU
+
+sstp.allowunspecifiedsend,0

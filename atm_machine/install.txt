@@ -1,0 +1,5 @@
+charset,UTF-8
+type,ghost
+
+name,ATM Machine
+directory,atm_machine_zi
