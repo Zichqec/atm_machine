@@ -23,7 +23,7 @@ async function getID() {
 	//for each var and key in result
 	for (var key in result) {
 		if(key.endsWith('.name')) {
-			if(result[key] == 'ATM-ghost') {
+			if(result[key] == 'ATM Machine') {
 				return result[key.replace('.name','.hwnd')];
 			}
 		}
