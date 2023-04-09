@@ -5,7 +5,7 @@ Make sure you have the [Wallet of Unyu plugin](https://github.com/nikolat/wallet
 
 Go to the [website](https://zichqec.github.io/atm_machine/).
 
-Click button.
+Click button while the ghost is open.
 
 Get UNYU.
 
