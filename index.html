@@ -1,12 +1,41 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <title>ATM Machine</title>
-</head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<title>Get Money</title>
+<script src="https://cdn.jsdelivr.net/gh/ukatech/jsstp-lib@master/jsstp.min.js"></script>
+<script>
+"use strict";
+jsttp.set_sendername("GetUNYU");
 
+async function getMoney(amount) {
+	jsttp.NOTIFY({
+		'Event':'GetUNYU',
+		'Option':'nobreak',
+		'ID':await getID()
+	});
+};
+async function getID() {
+	var result = await jsttp.EXECUTE({
+		'Command':'GetFMO'
+	});
+	//for each var and key in result
+	for (var key in result) {
+		if(key.endsWith('.name')) {
+			if(result[key] == 'ATM-ghost') {
+				return result[key.replace('.name','.hwnd')];
+			}
+		}
+	}
+};
+</script>
 <body>
-	<p>Hello, world!</p>
+	<h1>Get Money</h1>
+	<button onclick="getMoney(1);">GET 1 UNYU</button>
+	<h2>Download Wallet Plugin</h2>
+	<ul>
+		<li><a href="https://github.com/nikolat/wallet_of_unyu">GitHub</a> / <a href="https://github.com/nikolat/wallet_of_unyu/releases">Releases</a></li>
+	</ul>
 </body>
-
 </html>
