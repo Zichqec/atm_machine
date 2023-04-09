@@ -1,0 +1,17 @@
+charset,OSNative
+file,ghost/master/descript.txtec81d493b2eb30ad8017d4eec51f9240size=207date=2023-04-09T00:47:41
+file,ghost/master/main.dic47cab9da0a6ba5c2474447d93bde7832size=1401date=2023-04-09T04:54:24
+file,ghost/master/yaya.dll56e3af56c88e696cea1f39d53b239cefsize=880640date=2022-09-10T19:18:59
+file,ghost/master/yaya.txtaef378bb9a6f530695805792a0b4fe29size=608date=2023-02-11T04:05:31
+file,ghost/master/yaya_base/_loading_order.txt9c350c2c9c08f635bff5eaae149af8c8size=103date=2023-02-07T03:43:17
+file,ghost/master/yaya_base/compatible.dic4f8b1e8c8c08dc44e70b1bd4f52a1affsize=4297date=2023-02-07T03:43:17
+file,ghost/master/yaya_base/config.dice0b14f61285f623a25159fc076077162size=2652date=2023-04-09T03:42:39
+file,ghost/master/yaya_base/optional.dicff4da728a656a8aa6a38939e654c51f2size=9953date=2023-02-07T03:43:17
+file,ghost/master/yaya_base/shiori3.dic95ed336565542f24f1d698787a017302size=54211date=2023-04-09T03:42:39
+file,install.txt489a5f0b69f71011d6d1c1929bd4434esize=71date=2023-04-09T03:03:35
+file,readme.txt43eef0261d32da9503a73c0da99386easize=416date=2023-04-09T03:08:09
+file,shell/master/descript.txt87d2b66252d3bc20f46e7b6f0d639003size=179date=2023-04-09T00:43:57
+file,shell/master/readme.txtd51169890f7d0df83d6e25706328e169size=168date=2023-04-09T04:46:33
+file,shell/master/surface0.png6c86af02188e71ec4b0e8eff9e394716size=12643date=2023-04-09T00:43:30
+file,shell/master/surface10.png584286ee24f707c1a221be1c86989439size=92date=2023-04-09T00:43:39
+file,shell/master/surfaces.txtd41d8cd98f00b204e9800998ecf8427esize=0date=2022-04-13T19:11:45
