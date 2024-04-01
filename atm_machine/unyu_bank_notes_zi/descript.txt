@@ -1,0 +1,103 @@
+charset,UTF-8
+type,balloon
+use_self_alpha,1
+use_input_alpha,1
+//overlay_outside_balloon,1
+
+
+//——— Basic information ———
+name,Unyu Bank Notes
+craftman,Zichqec
+craftmanw,Zichqec
+craftmanurl,https://ukagaka.zichqec.com/
+homeurl,https://raw.githubusercontent.com/Zichqec/s-the-skeleton/master/updates/balloons/unyu_bank_notes/
+
+
+//——— Display area ———
+origin.x,0
+origin.y,0
+
+validrect.left,10
+validrect.top,10
+validrect.right,-10
+validrect.bottom,-14
+
+wordwrappoint.x,-20
+
+
+//——— Font ———
+font.name,courier new
+font.height,14
+
+font.color.r,023
+font.color.g,036
+font.color.b,083
+
+font.shadowcolor.r,153
+font.shadowcolor.g,159
+font.shadowcolor.b,194
+
+anchor.font.color.r,000
+anchor.font.color.g,080
+anchor.font.color.b,214
+
+cursor.font.color.r,000
+cursor.font.color.g,080
+cursor.font.color.b,214
+
+cursor.style,underline
+
+disable.font.color.r,119
+disable.font.color.g,138
+disable.font.color.b,168
+
+
+//——— Arrows ———
+arrow0.x,-9
+arrow0.y,10
+
+arrow1.x,-9
+arrow1.y,-18
+
+
+//——— Online marker ———
+onlinemarker.x,2
+onlinemarker.y,3
+
+onlinemarker.interval,50
+
+
+//——— SSTP ———
+sstpmarker.x,2
+sstpmarker.y,-16
+
+sstpmessage.font.name,courier new
+sstpmessage.font.height,11
+
+sstpmessage.x,14
+sstpmessage.xr,-10
+sstpmessage.y,-16
+
+sstpmessage.font.color.r,023
+sstpmessage.font.color.g,036
+sstpmessage.font.color.b,083
+
+
+//——— Number ———
+number.font.name,courier new
+number.font.height,11
+
+number.xr,-10
+number.y,0
+
+number.font.color.r,023
+number.font.color.g,036
+number.font.color.b,083
+
+
+//——— Input box ———
+communicatebox.x,10
+communicatebox.y,10
+
+communicatebox.width,480
+communicatebox.height,21

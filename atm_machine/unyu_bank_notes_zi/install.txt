@@ -1,0 +1,4 @@
+charset,UTF-8
+type,balloon
+name,Unyu Bank Notes
+directory,unyu_bank_notes_zi
