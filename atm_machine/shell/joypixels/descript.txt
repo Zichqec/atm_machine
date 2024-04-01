@@ -1,0 +1,10 @@
+charset,UTF-8
+type,shell
+
+name,Joypixels
+craftman,Zichqec
+craftmanw,Zichqec
+craftmanurl,https://ukagaka.zichqec.com/
+
+seriko.alignmenttodesktop,free
+seriko.use_self_alpha,1
