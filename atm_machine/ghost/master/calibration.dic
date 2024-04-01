@@ -1,0 +1,62 @@
+OnCalibration : all
+{
+	_amt1 = 100
+	_amt2 = RAND(99) + 1
+	_amt1 -= _amt2
+	reference5 = _amt2
+	
+	
+	"\C\![lock,balloonrepaint]\c"
+	"\![open,inputbox,OnCalibrationCheck,-1,--reference=%(reference2),--reference=%(reference3),--reference=%(reference4),--reference=%(reference5),__INPUT_BOX_COLOR__]"
+	"\0\b[0]\s[0]"
+	"\![set,autoscroll,disable]\![no-autopause]\_q\t\*"
+	
+	"CALIBRATION MODE:\n"
+	"SOLVE FOR X\n\n"
+	
+	"%(_amt1) + X = 100"
+	
+	"\n\n"
+	"CORRECT ANSWERS: %(reference2)\n"
+	"INCORRECT ANSWERS: %(reference3)\n"
+	"UNYU EARNED: %(reference4)\n\n"
+	"\![*]\__q[OnCalibrationEnd,0,0,%(reference2),%(reference3),%(reference4)]Leave calibration mode\__q"
+	"\![unlock,balloonrepaint]"
+}
+
+OnCalibrationCheck
+{
+	if reference0 == reference5
+	{
+		reference2++
+		reference4 += 15
+	}
+	else
+	{
+		reference3++
+	}
+	"\C\![raise,OnCalibration,0,0,%(reference2),%(reference3),%(reference4)]"
+}
+
+OnCalibrationEnd
+{
+	"\0\b[0]\s[0]"
+	--
+	"\![close,inputbox,OnCalibrationCheck]"
+	--
+	if CriminalAction
+	{
+		"Calibration complete. You earned %(reference4) UNYU. Was it worth the effort?"
+		"Rather dull, isn't it? Was it worthwhile for a mere %(reference4) UNYU?"
+	}
+	else
+	{
+		"\_q\![no-autopause]"
+		--
+		"CALIBRATION COMPLETE. %(reference4) UNYU EARNED."
+	}
+	--
+	if reference4 > 0; "\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,%(reference4),Wage earned]"
+	--
+	"\x\![raise,OnMenu]"
+}

@@ -1,0 +1,44 @@
+ExternalEvent.OnGetMoneySample : all
+{
+	"\0\b[0]\s[0]\_q"
+	"+1 UNYU\n"
+	"\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,1,Thanks for clicking!]"
+}
+
+OnNeedlePoke : all
+{
+	"\0\b[0]\s[0]\_q"
+	"-5 UNYU\n\![embed,OnNeedleUnyu]"
+	"\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,-5,Poked by Needle]"
+}
+
+OnWalletOfUnyu
+{
+	balance = TOINT(reference1)
+}
+
+OnTransactionHistory
+{
+	"\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,menu]"
+}
+
+OnVisitBank
+{
+	"\j[https://zichqec.github.io/atm_machine/]"
+}
+
+//Gets a list of installed plugins
+On_installedplugin
+{
+    pluginlist = IARRAY
+    foreach reference; _ref
+    {
+        pluginlist ,= _ref[0,C_BYTE1]
+    }
+}
+
+WalletInstalled
+{
+    if ASEARCH("Wallet of Unyu",pluginlist) != -1; 1
+    else; 0
+}

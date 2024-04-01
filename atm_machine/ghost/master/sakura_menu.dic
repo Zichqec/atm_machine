@@ -1,0 +1,235 @@
+OnMenu : all
+{
+	PINGuessing.Active = 0
+	if BalloonIsOpen; "\C\![lock,balloonrepaint]\c"
+	"\0\b[2]"
+	"\![set,autoscroll,disable]\_q"
+	
+	"\f[align,center]————————— Account ——————————%(newline)\n\f[align,default]"
+	"BALANCE: %(balance) UNYU\n\n"
+	"\![*]\q[Transaction history,OnTransactionHistory]\n"
+	"\![*]\q[Earn UNYU,OnVisitBank]\n"
+	"\n\n"
+	
+	"\f[align,center]——————— Promotional ————————%(newline)\n\f[align,default]"
+	"\![*]\q[Learn more,OnAiTalk]"
+	if LastTalk != ""; "\n\![*]\__q[OnLastTalk]Repeat information\__q"
+	
+	"\n\![*]Rate of information:\n"
+	_times = ("Off,0","1m,60","3m,180","5m,300","10m,600","15m,900")
+	
+	foreach _times; _time
+	{
+		switch TOINT(_time[1]) == aitalkinterval
+		{
+			"\__q[OnTalkRateChange,%(_time[1])]%(_time[0])\__q "
+			"\_a[OnTalkRateChange,%(_time[1])]%(_time[0])\_a "
+		}
+	}
+	"\n\n\n"
+	
+	if MaintenanceMode
+	{
+		"\f[align,center]——————— Maintenance ————————%(newline)\n\f[align,default]"
+		"\![*]\q[Calibrate ATM,OnCalibration,-1,start,0,0,0]\n"
+		"\![*]\q[Break into accounts,OnPINGuessing.Start]\n"
+		
+		if CriminalPoints > 0;
+		{
+			"\f[height,-2]Criminal points: %(CriminalPoints)"
+			if CriminalPoints > 15; "\n\__q[OnExpungeCriminalRecords](Expunge criminal records)\__q"
+			"\f[height,default]\n"
+		}
+		"\n\![*]\q[Exit maintenance mode,OnExitMaintenanceMode]"
+		"\n\n\n"
+	}
+	
+	if SHIORI3FW.BalloonName == "Unyu Bank Notes"
+	{
+		"\f[align,center]——————— Preferences ————————%(newline)\n\f[align,default]" //Constrained to this balloon for now, may have more later if more settings are required... although in that case it'll probably become a submenu. whatever.
+		if SHIORI3FW.BalloonName == "Unyu Bank Notes"; "Balloon denomination: \_a[OnBalloonMenu]%(BalloonColorArray[BalloonColor])\_a\n"
+		"\n\n"
+	}
+	
+	
+	
+	"\f[align,center]—————————— Other ———————————%(newline)\n\f[align,default]"
+	//"\![*]\q[Preferences,OnSettings]\n"
+	if !MaintenanceMode
+	{
+		"\![*]\q[Employee login,OnEmployeeLogin]\n\n"
+	}
+	"\![*]\q[Cancel,blank]\n"
+	"\f[align,right]\f[color,disable]ATM Machine v%(ghostver)\f[color,default]\f[height,default]%(newline)\f[align,default]"
+	"\![unlocklock,balloonrepaint]"
+	
+}
+
+
+OnLastTalk
+{
+	LastTalk
+}
+
+OnSettings : all
+{
+	
+	"\C\![lock,balloonrepaint]\c"
+	"\0\b[0]\![set,autoscroll,disable]\f[anchorvisitedfontcolor,default.anchor]\_q"
+	
+	"Talkrate: \_a[OnTalkRateMenu]%(TalkRateLabel(aitalkinterval))\_a\n"
+	if SHIORI3FW.BalloonName == "Unyu Bank Notes"; "Balloon denomination: \_a[OnBalloonMenu]%(BalloonColorArray[BalloonColor])\_a\n"
+	"\n"
+	"\![*]\q[Back,OnMenu]  \![*]\q[Close,blank]\n\n"
+	
+	"\f[height,-2]\f[color,disable]ATM Machine v%(ghostver)\f[color,default]\f[height,default]"
+	"\![unlock,balloonrepaint]"
+}
+
+OnTalkRateMenu : all
+{
+	"\C\![lock,balloonrepaint]\c"
+	"\0\b[0]\![set,autoscroll,disable]\_q"
+	"Current interval: %(TalkRateLabel(aitalkinterval))\n\n"
+
+	_rates = (0,30,60,180,300,600)
+	foreach _rates; _rate
+	{
+		"\![*]\q[""%(TalkRateLabel(_rate))"",OnTalkRateChange,%(_rate)]\n"
+	}
+	"\n"
+	"\![*]\q[Back,OnSettings]  \![*]\q[Close,blank]"
+	"\![unlock,balloonrepaint]"
+}
+
+OnTalkRateChange
+{
+	aitalkinterval = TOINT(reference0)
+	OnMenu
+}
+
+OnBalloonMenu : all
+{
+	"\C\![lock,balloonrepaint]\c"
+	"\_q"
+	"\0\b[0]\s[0]"
+	"\f[align,center]SELECT BALLOON DENOMINATION%(newline)\f[align,left]\n\n"
+	
+	_test = (1,2,3,4)
+    _num = ARRAYSIZE(_test)
+
+	for _i = 0; _i < ARRAYSIZE(BalloonColorArray); _i++
+	{
+		_color = BalloonColorArray[_i]
+		if _i == BalloonColor; "\![*]"
+		"\__q[OnBalloonColorChange,%(_i)]%(_color)\__q\n"
+	}
+	
+	"\n"
+	"\![*]\q[Back,OnMenu]  \![*]\q[Close,blank]"
+	"\![unlock,balloonrepaint]"
+}
+
+OnTest
+{
+	_array = ('Sakura','Mayura','Nekoko') // Assign a generic array
+	ARRAYSIZE( _array ) // The number of elements "3" is output
+}
+
+OnBalloonColorChange
+{
+	BalloonColor = TOINT(reference0)
+	OnBalloonMenu
+}
+
+BalloonColorArray : array
+{
+	"Blue"
+	"Purple"
+	"Green"
+	"Red"
+	"White"
+	"Black"
+}
+
+OnExpungeCriminalRecords : all
+{
+	_amount = (CriminalPoints * 500) + 1500
+	
+	"\0\b[0]\s[0]"
+	"I can erase your criminal history if you so choose, for a price. \n"
+	"Pay the amount of %(_amount) UNYU, and I will forget everything I know about you. \n"
+	"\n\_q"
+	"\![*]\__q[OnRecordExpunged,%(_amount)]Pay %(_amount) UNYU\__q\n"
+	"(Current balance: %(balance))\n\n"
+	"\![*]\__q[OnMenu]Nevermind\__q"
+}
+
+OnRecordExpunged
+{
+	CriminalPoints = 0
+	
+	"\0\b[0]\s[0]"
+	--
+	"RECORDS EXPUNGED.\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,-%(reference0),Criminal record expunged]\x\![raise,OnMenu]"
+}
+
+OnEmployeeLogin : all
+{
+	"\0\b[0]\_q\*\t\![set,autoscroll,disable]"
+	"\![open,passwordinput,OnEmployeePassword,-1,__INPUT_BOX_COLOR__]"
+	"EMPLOYEE ID: %(REPLACE(SHIORI3FW.UserNameFull,' ',''))\n"
+	"PLEASE ENTER YOUR PASSWORD.\n\n"
+	"\![*]\q[Forgot password?,OnPasswordForgot]\n"
+	"\![*]\q[Cancel,OnEmployeeLoginCancel]"
+}
+
+OnEmployeePassword
+{
+	"\0\b[0]"
+	--
+	if reference0 == "%(REPLACE(SHIORI3FW.UserNameFull,' ',''))%(SHIORI3FW.UserBirthday[0])"
+	{
+		MaintenanceMode = 1
+		
+		if CriminalAction
+		{
+			"I've been waiting for you."
+			"At last."
+		}
+		else
+		{
+			"\![no-autopause]\_q"
+			--
+			"LOGIN SUCCESSFUL. MAINTENANCE MODE ACTIVATED."
+		}
+		--
+		"\x\![raise,OnMenu]"
+	}
+	else
+	{
+		MaintenanceMode = 0
+		"INCORRECT PASSWORD.\x\![raise,OnEmployeeLogin]"
+	}
+}
+
+OnPasswordForgot : all
+{
+	"\0\b[0]\_q\![open,configurationdialog,setup]\![close,inputbox,OnEmployeePassword]"
+	"\![no-autopause]"
+	"PASSWORDS ARE BASED UPON THE USER ID (WITHOUT SPACES, CASE SENSITIVE) AND YEAR OF BIRTH.\n"
+	"EXAMPLE:\nJohn Doe, BORN 1/1/1970\nPASSWORD: JohnDoe1970\n\n"
+	"IF YOURS HAS BEEN SET IMPROPERLY, PLEASE REVIEW YOUR DETAILS AT THE BOTTOM OF THE EMPLOYEE PREFERENCES PAGE, CLOSE IT, THEN TRY AGAIN.\x"
+	"\![raise,OnEmployeeLogin]"
+}
+
+OnEmployeeLoginCancel : all
+{
+	"\C\![close,inputbox,OnEmployeePassword]\![raise,OnMenu]"
+}
+
+OnExitMaintenanceMode
+{
+	MaintenanceMode = 0
+	"\0\b[0]\_qMAINTENANCE MODE DEACTIVATED.\x\![raise,OnMenu]"
+}

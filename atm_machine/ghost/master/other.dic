@@ -1,0 +1,152 @@
+OnTranslate
+{
+	_talk = TOSTR(reference0)
+	
+	//This is what makes %(embedded_elements) work in script input
+	if reference1 == "" && reference2 == "" //If this is from the input box
+	{ //send input box : no event (ref2) , no special flag (ref1)
+		_talk = EVAL('"' + REPLACE(_talk,'"','""') + '"')
+	}
+	
+	if "\![no-autopause]" !_in_ _talk
+	{
+		/*
+		//Additional options if you want ellipsis to have little pauses between each dot. Personally, I think I want to do that manually, for when I want a particular flavor. If you want this, just uncomment it.
+		
+		_talk = REPLACE(_talk,"... ",".\w2.\w2.\w8 ") //Ellipsis
+		_talk = REPLACE(_talk,"..? ",".\w2.\w2?\w8 ") //Question mark + ellipsis
+		_talk = REPLACE(_talk,"..! ",".\w2.\w2!\w8 ") //Exclamation point + ellipsis
+		*/
+		
+		_talk = REPLACE(_talk,", ",",\w4 ") //Comma
+		_talk = REPLACE(_talk,". ",".\w8 ") //Period
+		_talk = REPLACE(_talk,"? ","?\w8 ") //Question mark
+		_talk = REPLACE(_talk,"! ","!\w8 ") //Exclamation point
+		_talk = REPLACE(_talk,"; ",";\w4 ") //Semicolon
+	}
+	
+	//no tofus
+	if SHIORI3FW.BalloonName != "Unyu Bank Notes"
+	{
+		_talk = RE_REPLACE(_talk,"—+\\_l","——\_l")
+		_talk = RE_REPLACE(_talk,"—+\s","—— ")
+		_talk = REPLACE(_talk,"—","\f[name,calibri]—\f[name,default]")
+		_talk = REPLACE(_talk,"•","\f[name,calibri]•\f[name,default]")
+		LOGGING("====================================================================")
+		LOGGING("RE_GETSTR: %(RE_GETSTR)")
+	}
+	
+	//Balloon customization
+	if SHIORI3FW.BalloonName == "Unyu Bank Notes"
+	{
+		_talk = REPLACE(_talk,"\b[0]","\b[%(BalloonColor)0]")
+		_talk = REPLACE(_talk,"\b[2]","\b[%(BalloonColor)2]")
+		_talk = REPLACE(_talk,"\b[4]","\b[%(BalloonColor)4]")
+		_talk = REPLACE(_talk,"\b[6]","\b[%(BalloonColor)6]")
+		_talk = REPLACE(_talk,"\b[8]","\b[%(BalloonColor)8]")
+		_talk = REPLACE(_talk,"__INPUT_BOX_COLOR__","--balloon=%(BalloonColor)0")
+	}
+	else
+	{
+		_talk = REPLACE(_talk,"\b[4]","\b[4,--fallback=2]")
+		_talk = REPLACE(_talk,"\b[6]","\b[6,--fallback=0]")
+		_talk = REPLACE(_talk,"\b[8]","\b[8,--fallback=2]")
+	}
+	
+	
+	TOSTR(_talk)
+}
+
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0; "\j[""%(reference0)""]"
+}
+
+//Hotkeys
+OnKeyPress
+{
+	if PINGuessing.Active; OnKeyPress.PINGuessing
+	else
+	{
+		if reference0 == "f1"; "\![open,readme]"
+		elseif reference0 == "t"; OnAiTalk
+		elseif reference0 == "r"; OnLastTalk
+	}
+}
+
+OnSurfaceRestore
+{
+	PINGuessing.Active = 0
+	"\1\s[-1]\0\s[0]"
+}
+
+OnWindowStateRestore
+{
+	OnSurfaceRestore
+}
+
+On_homeurl
+{
+	"https://raw.githubusercontent.com/Zichqec/atm_machine/main/"
+}
+
+
+//—————————————————————————————— Right click menu links ——————————————————————————————
+
+//Takes an array of alternating names and urls, and formats them for use with the right click menu
+FormatLinks : all
+{
+	for _i = 0; _i < ARRAYSIZE(_argv); _i++
+	{
+		_argv[_i] //Add the link/title
+		//Alternate between adding %ASC(1) or %ASC(2)
+		if _i % 2 == 1; "%ASC(2)"
+		else; "%ASC(1)"
+	}
+}
+
+On_sakura.recommendsites
+{
+	FormatLinks(recommendsites_sakura)
+}
+
+//These are the websites linked in the top option of the sakura's right click menu
+recommendsites_sakura : array
+{
+	"Wallet of Unyu plugin";	"https://github.com/nikolat/wallet_of_unyu"
+	"Visit bank";				"https://zichqec.github.io/atm_machine/"
+	"ATM Machine release page";	"https://ukagaka.zichqec.com/ghost/atm_machine"
+	"ATM Machine wiki page";	"https://ukagakadreamteam.com/wiki/ghost/atm_machine"
+}
+
+On_sakura.portalsites 
+{
+	//FormatLinks(portalsites_sakura)
+}
+
+//These are the websites linked in the second option of the sakura's right click menu
+portalsites_sakura : array
+{
+	// "Another link label";	"https://link.example.com/link/to/whatever/here/again/"
+	// "A third link label";	"https://link.example.com/link/to/whatever/a/third/time/you/can/add/as/many/as/you/want/"
+}
+
+On_getaistateex : all
+{
+	switch reference0
+	{	
+		"%(OUTPUTNUM('RandomTalk')),%(OUTPUTNUM('CriminalTalk')),%(OUTPUTNUM('RandomTalk') + OUTPUTNUM('CriminalTalk'))" + C_BYTE1
+		//"" + C_BYTE1
+	}
+
+	switch reference0
+	{
+		"RandomTalk,CriminalTalk,Both"
+	}
+	
+}
+
+username
+{
+	SHIORI3FW.UserName
+}

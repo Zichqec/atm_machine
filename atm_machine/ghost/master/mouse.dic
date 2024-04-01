@@ -1,0 +1,11 @@
+OnMouseDoubleClick
+{
+	if reference5 == "0"
+	{
+		if WalletInstalled
+		{
+			"\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,get]\![raise,OnMenu]"
+		}
+		else; "\0\b[0]\s[0]\_q\![no-autopause]" + PluginInstallMessage
+	}
+}

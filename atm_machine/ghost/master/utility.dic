@@ -1,0 +1,85 @@
+CriminalAction
+{
+	RAND(100) <= CriminalPoints && MaintenanceMode
+}
+
+TalkRateLabel
+{
+	_num = TOINT(_argv[0])
+	if _num <= 0; {"Off"; return}
+	
+	//Singular form, plural form, number of seconds
+	_units = ( /
+	"hour,hours,3600",/
+	"minute,minutes,60",/
+	"second,seconds,1"/
+	)
+	
+	_output = ""
+	foreach _units; _unit
+	{
+		_duration = TOINT(_unit[2])
+		_amt = _num / _duration
+		_num = _num % _duration
+		
+		if _amt > 0
+		{
+			if _output != ""; _output += ", "
+			
+			//The second function call here handles whether the unit name should be displayed as plural or not, depending on if the amount of that unit is greater than 1
+			_output += "%(_amt) %(_unit[_amt > 1])"
+		}
+		if _num <= 0; break
+	}
+	_output
+}
+
+newline
+{
+	"\_l[,]"
+}
+
+br
+{
+	if SHIORI3FW.BalloonName == "Unyu Bank Notes"; "\n"
+	else; " "
+}
+
+PluginInstallMessage
+{
+	"WELCOME TO UNYU BANK.\nSIGN UP FOR A BANK ACCOUNT BY INSTALLING THE \_a[https://github.com/nikolat/wallet_of_unyu/releases]WALLET OF UNYU\_a PLUGIN.\nTHIS ATM WILL NOT FUNCTION WITHOUT THE PLUGIN.\nIF THE PLUGIN IS NO LONGER AVAILABLE, PLEASE CONTACT THE ATM'S \_a[https://ukagaka.zichqec.com/]ADMINISTRATOR\_a FOR HELP."
+}
+
+unyu
+{
+	"\f[strike,1]U\f[strike,default]"
+}
+
+monthname
+{
+	switch month - 1
+	{
+		"January"
+		"February"
+		"March"
+		"April"
+		"May"
+		"June"
+		"July"
+		"August"
+		"September"
+		"October"
+		"November"
+		"December"
+	}
+}
+
+ghostver
+{
+	"2.0.0"
+}
+
+BalloonIsOpen
+{
+	"balloon" _in_ status
+}

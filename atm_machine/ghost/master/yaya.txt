@@ -7,10 +7,19 @@ charset.extension, UTF-8
 
 dicdir, yaya_base
 
-dic, main.dic
+dic, aitalk.dic
+dic, atm_functions.dic
+dic, boot.dic
+dic, calibration.dic
+dic, mouse.dic
+dic, meta.dic
+dic, other.dic
+dic, pin_guessing.dic
+dic, sakura_menu.dic
+dic, utility.dic
+dic, word.dic
 
 msglang,english
-
 
 //------------------------------------------------------------------------------
 //Execution log
@@ -19,3 +28,6 @@ msglang,english
 // log, ayame.log	
 ignoreiolog, ID: OnSecondChange //Ignores OnSecondChange
 ignoreiolog, ID: OnMouse        //Ignores all OnMouse functions
+
+//iolog.filter.mode,whitelist
+//iolog.filter.keyword,OnNothingAtAll

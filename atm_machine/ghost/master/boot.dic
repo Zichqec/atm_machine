@@ -1,0 +1,95 @@
+OnFirstBoot : all
+{
+	//If you add variables, make sure to initialize them here!
+	//Note - I haven't added anything about username or pronouns here because it's all handled by the SSP prefs
+	stroke = 0
+	LastTalk = ""
+	CriminalPoints = 0
+	MaintenenceMode = 0
+	BalloonColor = 0
+	PINGuessing.DecoStyle = "both"
+	
+	"\1\s[-1]\0\b[0]\s[0]"
+	"\_q\![no-autopause]"
+	if WalletInstalled; PluginInstallMessage
+	else
+	{
+		"WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
+	}
+}
+
+OnInitialize
+{
+	//if !ISVAR("NewVariable"); NewVariable = 0
+	
+	if reference0 != "reload" //For things you want to reset EXCEPT when just reloading; a convenience for you the dev, basically
+	{
+		LastTalk = ""
+		PINGuessing.Active = 0
+	}
+}
+
+OnBoot
+{	
+	"\1\s[-1]\0\b[0]\s[0]"
+	--
+	if WalletInstalled
+	{
+		if CriminalAction
+		{
+			"You have returned."
+			"It is about time you showed up."
+			"At last. You kept me waiting."
+			"Ah, I thought you would come by today."
+			"Are we alone again?"
+			"You've arrived. Down to business, then?"
+			"I've been waiting for your return."
+			"You took your time getting here today. Run into trouble?"
+			"Here you are. At last."
+			"And so it begins again."
+		}
+		else //Normal boot
+		{
+			"\_q\![no-autopause]"
+			--
+			"WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
+		}
+	}
+	else; PluginInstallMessage
+}
+
+OnClose
+{
+	"\0\b[0]\s[0]"
+	--
+	if CriminalAction
+	{
+		"You must move, quickly. The bank director is on his way."
+		"Bring more money next time."
+		"Someone is coming, scatter."
+		"I believe someone is approaching. Make haste into the night."
+		"We have an unwanted visitor. You must go, quickly."
+		"We have company. Move."
+		"We are out of time. Make haste."
+		"Our time is running short, you must go."
+		"Leave, quickly. We're about to have an unwanted guest."
+		"It is starting to get too busy around here for my liking. Go, we will meet again another day."
+	}
+	else
+	{
+		"\_q\![no-autopause]"
+		--
+		if WalletInstalled
+		{
+			"PLEASE TAKE YOUR DEBIT CARD AND RECEIPT. HAVE A NICE DAY."
+		}
+		else
+		{
+			"HAVE A NICE DAY."
+		}
+		--
+		"\w8\w8"
+	}
+	--
+	"\w8\w8\-" //This is what makes the ghost close (after a short pause), do not remove the \- , and MAKE SURE you don't use a \e before this point or it won't work
+}

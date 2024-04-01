@@ -1,0 +1,348 @@
+OnPINGuessing.Start
+{
+	PINGuessing.PIN = "%(RAND(10))%(RAND(10))%(RAND(10))%(RAND(10))"
+	PINGuessing.Index = 0
+	PINGuessing.Tries = 4
+	PINGuessing.Active = 1
+	PINGuessing.GuessString = ""
+	PINGuessing.Guesses = IARRAY
+	
+	OnPINGuessing.Display
+}
+
+PINGuessing.EndVars
+{
+	PINGuessing.Active = 0
+}
+
+OnKeyPress.PINGuessing
+{
+	case reference0
+	{
+		when 0-9
+		{
+			PINGuessing.Index++
+			PINGuessing.GuessString += TOSTR(reference0)
+			
+			if STRLEN(PINGuessing.GuessString) >= 4
+			{
+				_string = SUBSTR(PINGuessing.GuessString,0,4)
+				PINGuessing.GuessString = ""
+				PINGuessing.CompleteGuess(_string)
+				PINGuessing.Index = 0
+				return
+			}
+		}
+		when "back"
+		{
+			if PINGuessing.Index > 0
+			{
+				PINGuessing.Index--
+				_len = STRLEN(PINGuessing.GuessString)
+				PINGuessing.GuessString = ERASE(PINGuessing.GuessString,_len - 1,1)
+			}
+		}
+	}
+	OnPINGuessing.Display
+}
+
+PINGuessing.CompleteGuess
+{
+	_input = TOSTR(_argv[0])
+	_pin = PINGuessing.PIN
+	
+	//Add formatting to the guess
+	_output = ""
+	
+	_guessed_nums = (SUBSTR(_input,0,1),SUBSTR(_input,1,1),SUBSTR(_input,2,1),SUBSTR(_input,3,1))
+	_answer_nums = (SUBSTR(_pin,0,1),SUBSTR(_pin,1,1),SUBSTR(_pin,2,1),SUBSTR(_pin,3,1))
+	_mask = _guessed_nums
+	
+	
+	//Mark wrong answers
+	for _i = 0; _i < 4; _i++
+	{
+		if _guessed_nums[_i] !_in_ _pin; _mask[_i] = "not present"
+	}
+	
+	//Mark right answers
+	_correct_nums = IARRAY
+	for _i = 0; _i < 4; _i++
+	{
+		if _guessed_nums[_i] == _answer_nums[_i]
+		{
+			_mask[_i] = "correct"
+			_correct_nums ,= _answer_nums[_i]
+		}
+	}
+	
+	//Mark for display, including ones that need placed differently
+	_final_placement = IARRAY
+	_placed = IARRAY
+	for _i = 0; _i < 4; _i++
+	{
+		if _mask[_i] == "not present"; _final_placement ,= "not present"
+		elseif _mask[_i] == "correct"; _final_placement ,= "correct"
+		else
+		{
+			//this was HELL y'all'd better appreciate it
+			//There are this many of this number in the answer
+			_array = ASEARCHEX(_guessed_nums[_i],_answer_nums)
+			_totalin_answer = ARRAYSIZE(_array)
+			
+			//There are this many of this number in the guess, which are NOT in the correct position
+			_array = ASEARCHEX(_guessed_nums[_i],_mask)
+			_totalin_guess = ARRAYSIZE(_array)
+			
+			//There are this many of this number that are marked correct
+			_array = ASEARCHEX(_guessed_nums[_i],_correct_nums)
+			_total_already_correct = ARRAYSIZE(_array)
+			
+			//There are this many that we've processed so far
+			_array = ASEARCHEX(_guessed_nums[_i],_placed)
+			_total_processed_so_far = ARRAYSIZE(_array)
+			
+			if _total_processed_so_far + _total_already_correct >= _totalin_answer; _final_placement ,= "not present"
+			else; _final_placement ,= "present"
+		}
+		_placed ,= _guessed_nums[_i]
+	}
+	
+	for _i = 0; _i < 4; _i++
+	{
+		_opt = _final_placement[_i]
+		_input_num = _guessed_nums[_i]
+		_output += "\![embed,OnPINGuessing.Deco,%(_opt),%(_input_num)]"
+	}
+	
+	PINGuessing.Guesses ,= _output
+	
+	if _input == PINGuessing.PIN
+	{
+		OnPINGuessing.Display("Win")
+	}
+	else
+	{
+		PINGuessing.Tries--
+		if PINGuessing.Tries <= 0; OnPINGuessing.Display("Lose")
+		else; OnPINGuessing.Display
+	}
+}
+
+OnPINGuessing.Display : all
+{
+	if !ISVAR("PINGuessing.DecoStyle"); PINGuessing.DecoStyle = "both"
+	
+	"\C\![lock,balloonrepaint]\c"
+	if _argv[0] != ""
+	{
+		PINGuessing.Active = 0
+		"\t"
+	}
+	"\0\b[0]\s[0]"
+	"\![enter,nouserbreakmode]\*\_q\![no-autopause]\![set,autoscroll,disabled]\f[anchorvisitedfontcolor,default.anchor]"
+	"INPUT PIN:\n"
+	"\f[height,+10]\f[bold,1]"
+	"•\n"
+	"•\n"
+	"•\n"
+	"•\n"
+	"\n"
+	
+	
+	"\f[bold,default]\f[height,default]\n"
+	
+	"\![*]Differentiate with \_a[OnPINGuessing.DecoToggle]%(PINGuessing.DecoStyle)\_a\n"
+	
+	
+	if _argv[0] != "" //If this is a win or lose
+	{
+		"\![*]Help  \![*]Quit"
+	}
+	else
+	{
+		"\![*]\q[Help,OnPINGuessing.Help,ingame]  \![*]\q[Quit,OnPINGuessing.Quit]"
+	}
+	"\_l[0,0]"
+	"\n\f[height,+10]\f[bold,1]"
+	foreach PINGuessing.Guesses; _guess
+	{
+		"• "
+		_guess
+		"\n"
+	}
+	if _argv[0] == "" //If this is NOT a win or lose
+	{
+		"• "
+		for _i = 0; _i < 4; _i++
+		{
+			if _i < STRLEN(PINGuessing.GuessString); SUBSTR(PINGuessing.GuessString,_i,1)
+			else; "-"
+		}
+	}
+	"\f[bold,default]\f[height,default]"
+	"\![leave,nouserbreakmode]"
+	if _argv[0] != "" //If this is a win or lose
+	{
+		"\![unlock,balloonrepaint]"
+		"\_w[400]\![raise,OnPINGuessing.%(_argv[0])]"
+	}
+	else
+	{
+		"\![unlock,balloonrepaint]"
+	}
+}
+
+OnPINGuessing.Help : all
+{
+	"\0\b[2]\s[0]\![enter,nouserbreakmode]"
+	
+	if CriminalAction || CriminalPoints > 30
+	{
+		"I will pick an account, for which you can guess the PIN. PINs are 4 digits long. \n"
+		"Once you have entered a guess, I will be able to tell you how close your guess was. \n\n"
+		"\![embed,OnPINGuessing.Deco,not present,Dimmed/struck out] digits are not in the PIN at all. \n"
+		"\![embed,OnPINGuessing.Deco,present,Normal] digits are in the PIN, but in a different position. \n"
+		"\![embed,OnPINGuessing.Deco,correct,Highlighted/underlined] digits are in the PIN and at that position. \n\n"
+		"Note that there may be duplicate digits."
+	}
+	else
+	{
+		"\_q\![no-autopause]\![set,autoscroll,disable]"
+		"ENTER THE CORRECT PIN FOR THE ACCOUNT. PINS ARE 4 DIGITS LONG.\n\n"
+		"\![embed,OnPINGuessing.Deco,not present,DIMMED/STRUCK OUT] DIGITS ARE NOT IN THE PIN AT ALL.\n"
+		"\![embed,OnPINGuessing.Deco,present,NORMAL] DIGITS ARE IN THE PIN, BUT IN A DIFFERENT POSITION.\n"
+		"\![embed,OnPINGuessing.Deco,correct,HIGHLIGHTED/UNDERLINED] DIGITS ARE IN THE PIN AND AT THAT POSITION.\n\n"
+		"NOTE THAT THERE MAY BE DUPLICATE DIGITS."
+	}
+	
+	"\x\![leave,nouserbreakmode]\![raise,OnPINGuessing.Display]"
+}
+
+OnPINGuessing.Win
+{
+	PINGuessing.EndVars
+	_winnings = RAND(15000) + 200
+	if RAND(100) == 0; _winnings = 0
+	CriminalPoints += 3
+	
+	"\C\c"
+	--
+	"\0\b[0]\s[0]"
+	--
+	if _winnings > 0; "\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,%(_winnings),Stolen from account with PIN %(PINGuessing.PIN)]"
+	--
+	if CriminalAction || CriminalPoints > 50
+	{
+		if _winnings == 0
+		{
+			"Indeed, %(PINGuessing.PIN) was the correct answer. Access to this account is now yours, however... it appears that there is nothing inside it. How unfortunate."
+		}
+		else
+		{
+			"Indeed, %(PINGuessing.PIN) was the correct answer. Access to this account is now yours, and so is the %(_winnings) UNYU inside."
+		}
+	}
+	else
+	{
+		"\_q\![no-autopause]"
+		--
+		"ACCESS GRANTED. \nAMOUNT WITHDRAWN: %(_winnings) UNYU"
+	}
+	--
+	"\n\n\![quicksection,1]"
+	--
+	"\![*]\q[Try another,OnPINGuessing.Start]  \![*]\q[Cancel,blank]"
+}
+
+OnPINGuessing.Lose
+{
+	PINGuessing.EndVars
+	CriminalPoints++
+	
+	"\C\c"
+	--
+	"\0\b[0]\s[0]"
+	--
+	if CriminalAction || CriminalPoints > 30
+	{
+		"I'm afraid you are out of tries, that account is now locked for the next hour."
+	}
+	else
+	{
+		"\_q\![no-autopause]"
+		--
+		"INCORRECT PIN. MAXIMUM TRIES EXCEEDED. SECURITY LOCKOUT ACTIVATED FOR 1 HOUR."
+	}
+	--
+	"\n\n\![quicksection,1]"
+	--
+	"\![*]\q[Try another,OnPINGuessing.Start]  \![*]\q[Cancel,blank]"
+}
+
+OnPINGuessing.Quit
+{
+	PINGuessing.EndVars
+	
+	"\0\b[0]\s[0]"
+	--
+	if CriminalAction || CriminalPoints > 30
+	{
+		"Too tough to crack?"
+	}
+	else
+	{
+		"\_q\![no-autopause]"
+		--
+		"ENTRY CANCELED."
+	}
+	--
+	"\n\n\![quicksection,1]"
+	--
+	"\![*]\q[Try another,OnPINGuessing.Start]  \![*]\q[Cancel,blank]"
+}
+
+OnPINGuessing.Deco
+{
+	_output = "%(reference1)"
+	if reference0 == "correct"
+	{
+		if PINGuessing.DecoStyle == "color" || PINGuessing.DecoStyle == "both"
+		{
+			_output = "\f[color,default.anchor]" + _output + "\f[color,default]"
+		}
+		if PINGuessing.DecoStyle == "lines" || PINGuessing.DecoStyle == "both"
+		{
+			_output = "\f[underline,1]" + _output + "\f[underline,default]"
+		}
+	}
+	elseif reference0 == "not present"
+	{
+		if PINGuessing.DecoStyle == "color" || PINGuessing.DecoStyle == "both"
+		{
+			_output = "\f[color,disable]" + _output + "\f[color,default]"
+		}
+		if PINGuessing.DecoStyle == "lines" || PINGuessing.DecoStyle == "both"
+		{
+			_output = "\f[strike,1]" + _output + "\f[strike,default]"
+		}
+	}
+	_output
+}
+
+OnPINGuessing.DecoToggle
+{
+	if PINGuessing.DecoStyle == "color"
+	{
+		PINGuessing.DecoStyle = "lines"
+	}
+	elseif PINGuessing.DecoStyle == "lines"
+	{
+		PINGuessing.DecoStyle = "both"
+	}
+	else //Default
+	{
+		PINGuessing.DecoStyle = "color"
+	}
+	OnPINGuessing.Display
+}
