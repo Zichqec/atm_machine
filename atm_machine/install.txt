@@ -3,3 +3,5 @@ type,ghost
 
 name,ATM Machine
 directory,atm_machine_zi
+
+balloon.directory,unyu_bank_notes_zi
