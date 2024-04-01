@@ -4,3 +4,7 @@ atm_machine/ghost/master/profile/
 atm_machine/shell/master/profile/
 atm_machine/shell/joypixels/profile/shell.dat
 atm_machine/shell/joypixels/profile/shell.dat.bak
+/ghost/master/profile
+ghost/master/yaya_variable.cfg
+/shell/joypixels/profile
+/shell/master/profile
