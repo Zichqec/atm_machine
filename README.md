@@ -10,3 +10,5 @@ Click button while the ghost is open.
 Get UNYU.
 
 That's it that's the ghost.
+
+Or it was, until April Fools' Day 2024 happened. Now there's dialogue, minigames, and crime!
