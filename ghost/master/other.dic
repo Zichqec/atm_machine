@@ -32,8 +32,6 @@ OnTranslate
 		_talk = RE_REPLACE(_talk,"—+\s","—— ")
 		_talk = REPLACE(_talk,"—","\f[name,calibri]—\f[name,default]")
 		_talk = REPLACE(_talk,"•","\f[name,calibri]•\f[name,default]")
-		LOGGING("====================================================================")
-		LOGGING("RE_GETSTR: %(RE_GETSTR)")
 	}
 	
 	//Balloon customization
@@ -114,7 +112,7 @@ On_sakura.recommendsites
 recommendsites_sakura : array
 {
 	"Wallet of Unyu plugin";	"https://github.com/nikolat/wallet_of_unyu"
-	"Visit bank";				"https://zichqec.github.io/atm_machine/"
+	"Earn UYNU";				"https://zichqec.github.io/atm_machine/"
 	"ATM Machine release page";	"https://ukagaka.zichqec.com/ghost/atm_machine"
 	"ATM Machine wiki page";	"https://ukagakadreamteam.com/wiki/ghost/atm_machine"
 }
