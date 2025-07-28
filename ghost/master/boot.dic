@@ -88,5 +88,5 @@ OnClose
 		"\w8\w8"
 	}
 	--
-	"\w8\w8\-" //This is what makes the ghost close (after a short pause), do not remove the \- , and MAKE SURE you don't use a \e before this point or it won't work
+	"\w8\w8\-"
 }
