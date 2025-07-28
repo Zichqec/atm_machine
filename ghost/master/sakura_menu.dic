@@ -59,7 +59,7 @@ OnMenu : all
 	
 	
 	"\f[align,center]—————————— Other ———————————%(newline)\n\f[align,default]"
-	//"\![*]\q[Preferences,OnSettings]\n"
+	//"\![*]\__q[OnSettings]Preferences\__q\n" //I removed the settings menu in v2.0.2 since currently it has nothing in it...
 	if !MaintenanceMode
 	{
 		"\![*]\__q[OnEmployeeLogin]Employee login\__q\n\n"
@@ -74,37 +74,6 @@ OnMenu : all
 OnLastTalk
 {
 	LastTalk
-}
-
-OnSettings : all
-{
-	
-	"\C\![lock,balloonrepaint]\c"
-	"\0\b[0]\![set,autoscroll,disable]\f[anchorvisitedfontcolor,default.anchor]\_q"
-	
-	"Talkrate: \_a[OnTalkRateMenu]%(TalkRateLabel(aitalkinterval))\_a\n"
-	if SHIORI3FW.BalloonName == "Unyu Bank Notes"; "Balloon denomination: \_a[OnBalloonMenu]%(BalloonColorArray[BalloonColor])\_a\n"
-	"\n"
-	"\![*]\q[Back,OnMenu]  \![*]\q[Close,blank]\n\n"
-	
-	"\f[height,-2]\f[color,disable]ATM Machine v%(ghostver)\f[color,default]\f[height,default]"
-	"\![unlock,balloonrepaint]"
-}
-
-OnTalkRateMenu : all
-{
-	"\C\![lock,balloonrepaint]\c"
-	"\0\b[0]\![set,autoscroll,disable]\_q"
-	"Current interval: %(TalkRateLabel(aitalkinterval))\n\n"
-
-	_rates = (0,30,60,180,300,600)
-	foreach _rates; _rate
-	{
-		"\![*]\q[""%(TalkRateLabel(_rate))"",OnTalkRateChange,%(_rate)]\n"
-	}
-	"\n"
-	"\![*]\q[Back,OnSettings]  \![*]\q[Close,blank]"
-	"\![unlock,balloonrepaint]"
 }
 
 OnTalkRateChange
