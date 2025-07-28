@@ -170,13 +170,14 @@ OnExpungeCriminalRecords : all
 	"\![*]\__q[OnMenu]Nevermind\__q"
 }
 
-OnRecordExpunged
+OnRecordExpunged : all
 {
 	CriminalPoints = 0
 	
-	"\0\b[0]\s[0]"
-	--
-	"RECORDS EXPUNGED.\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,-%(reference0),Criminal record expunged]\x\![raise,OnMenu]"
+	"\0\b[0]\s[0]\![use-robotext]"
+	
+	"RECORDS EXPUNGED."
+	"\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,-%(reference0),Criminal record expunged]\x\![raise,OnMenu]"
 }
 
 OnEmployeeLogin : all
