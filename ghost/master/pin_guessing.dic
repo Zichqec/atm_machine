@@ -161,7 +161,7 @@ OnPINGuessing.Display : all
 	}
 	else
 	{
-		"\![*]\q[Help,OnPINGuessing.Help,ingame]  \![*]\q[Quit,OnPINGuessing.Quit]"
+		"\![*]\__q[OnPINGuessing.Help,ingame]Help\__q  \![*]\__q[OnPINGuessing.Quit]Quit\__q"
 	}
 	"\_l[0,0]"
 	"\n\f[height,+10]\f[bold,1]"

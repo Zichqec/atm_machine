@@ -7,12 +7,12 @@ OnMenu : all
 	
 	"\f[align,center]————————— Account ——————————%(newline)\n\f[align,default]"
 	"BALANCE: %(balance) UNYU\n\n"
-	"\![*]\q[Transaction history,OnTransactionHistory]\n"
-	"\![*]\q[Earn UNYU,OnVisitBank]\n"
+	"\![*]\__q[OnTransactionHistory]Transaction history\__q\n"
+	"\![*]\__q[OnVisitBank]Earn UNYU\__q\n"
 	"\n\n"
 	
 	"\f[align,center]——————— Promotional ————————%(newline)\n\f[align,default]"
-	"\![*]\q[Learn more,OnAiTalk]"
+	"\![*]\__q[OnAiTalk]Learn more\__q"
 	"\n"
 	switch LastTalk == ""
 	{
@@ -36,8 +36,8 @@ OnMenu : all
 	if MaintenanceMode
 	{
 		"\f[align,center]——————— Maintenance ————————%(newline)\n\f[align,default]"
-		"\![*]\q[Calibrate ATM,OnCalibration,-1,start,0,0,0]\n"
-		"\![*]\q[Break into accounts,OnPINGuessing.Start]\n"
+		"\![*]\__q[OnCalibration,-1,start,0,0,0]Calibrate ATM\__q\n"
+		"\![*]\__q[OnPINGuessing.Start]Break into accounts\__q\n"
 		
 		if CriminalPoints > 0;
 		{
@@ -45,7 +45,7 @@ OnMenu : all
 			if CriminalPoints > 15; "\n\__q[OnExpungeCriminalRecords](Expunge criminal records)\__q"
 			"\f[height,default]\n"
 		}
-		"\n\![*]\q[Exit maintenance mode,OnExitMaintenanceMode]"
+		"\n\![*]\__q[OnExitMaintenanceMode]Exit maintenance mode\__q"
 		"\n\n\n"
 	}
 	
@@ -62,9 +62,9 @@ OnMenu : all
 	//"\![*]\q[Preferences,OnSettings]\n"
 	if !MaintenanceMode
 	{
-		"\![*]\q[Employee login,OnEmployeeLogin]\n\n"
+		"\![*]\__q[OnEmployeeLogin]Employee login\__q\n\n"
 	}
-	"\![*]\q[Cancel,blank]\n"
+	"\![*]\__q[blank]Cancel\__q\n"
 	"\f[align,right]\f[color,disable]ATM Machine v%(ghostver)\f[color,default]\f[height,default]%(newline)\f[align,default]"
 	"\![unlocklock,balloonrepaint]"
 	
@@ -131,7 +131,7 @@ OnBalloonMenu : all
 	}
 	
 	"\n"
-	"\![*]\q[Back,OnMenu]  \![*]\q[Close,blank]"
+	"\![*]\__q[OnMenu]Back\__q  \![*]\__q[blank]Close\__q"
 	"\![unlock,balloonrepaint]"
 }
 
@@ -186,8 +186,8 @@ OnEmployeeLogin : all
 	"\![open,passwordinput,OnEmployeePassword,-1,__INPUT_BOX_COLOR__]"
 	"EMPLOYEE ID: %(REPLACE(SHIORI3FW.UserNameFull,' ',''))\n"
 	"PLEASE ENTER YOUR PASSWORD.\n\n"
-	"\![*]\q[Forgot password?,OnPasswordForgot]\n"
-	"\![*]\q[Cancel,OnEmployeeLoginCancel]"
+	"\![*]\__q[OnPasswordForgot]Forgot password?\__q\n"
+	"\![*]\__q[OnEmployeeLoginCancel]Cancel\__q"
 }
 
 OnEmployeePassword

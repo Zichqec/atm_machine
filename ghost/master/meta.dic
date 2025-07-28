@@ -126,7 +126,7 @@ OnSNTPCompare
 		
 		"\0\b[0]\s[0]The clock is off by %(reference3) second%(_s).\n\n"
 		--
-		"\![*]\q[Fix it,script:\6]  \![*]\q[Leave it,blank]"
+		"\![*]\__q[script:\6]Fix it\__q  \![*]\__q[blank]Leave it\__q"
 	}
 	else
 	{
