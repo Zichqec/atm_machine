@@ -41,7 +41,7 @@ newline
 
 br
 {
-	if SHIORI3FW.BalloonName == "Unyu Bank Notes"; "\n"
+	if SHIORI3FW.BalloonName == "Unyu Bank Notes"; " \c[char,1]\n"
 	else; " "
 }
 
