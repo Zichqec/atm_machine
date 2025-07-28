@@ -73,7 +73,7 @@ ChunkText
 
 PluginInstallMessage
 {
-	"WELCOME TO UNYU BANK.\nSIGN UP FOR A BANK ACCOUNT BY INSTALLING THE \_a[https://github.com/nikolat/wallet_of_unyu/releases]WALLET OF UNYU\_a PLUGIN.\n\w8\w8THIS ATM WILL NOT FUNCTION WITHOUT THE PLUGIN.\w8\w8\nIF THE PLUGIN IS NO LONGER AVAILABLE, PLEASE CONTACT THE ATM'S \_a[https://ukagaka.zichqec.com/]ADMINISTRATOR\_a FOR HELP."
+	"\![use-chunktext]WELCOME TO UNYU BANK.\n\w8\w8SIGN UP FOR A BANK ACCOUNT BY INSTALLING THE \_a[https://github.com/nikolat/wallet_of_unyu/releases]WALLET OF UNYU\_a PLUGIN.\n\w8\w8THIS ATM WILL NOT FUNCTION WITHOUT THE PLUGIN.\w8\w8\nIF THE PLUGIN IS NO LONGER AVAILABLE, PLEASE CONTACT THE ATM'S \_a[https://ukagaka.zichqec.com/]ADMINISTRATOR\_a FOR HELP."
 }
 
 unyu

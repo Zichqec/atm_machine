@@ -9,11 +9,11 @@ OnFirstBoot : all
 	BalloonColor = 0
 	PINGuessing.DecoStyle = "both"
 	
-	"\1\s[-1]\0\b[0]\s[0]\![use-chunktext]"
+	"\1\s[-1]\0\b[0]\s[0]"
 	if !WalletInstalled; PluginInstallMessage
 	else
 	{
-		"WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
+		"\![use-chunktext]WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
 	}
 }
 

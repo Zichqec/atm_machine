@@ -13,7 +13,7 @@ OnAiTalk
 			LastTalk += ChainTalk
 		}
 	}
-	else; LastTalk += "\![use-chunktext]" + PluginInstallMessage + "\_w[5000] "
+	else; LastTalk += PluginInstallMessage + "\_w[5000] "
 	LastTalk
 }
 
