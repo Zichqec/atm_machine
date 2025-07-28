@@ -199,7 +199,7 @@ OnPINGuessing.Help : all
 	
 	if CriminalAction || CriminalPoints > 30
 	{
-		"I will pick an account, for which you can guess the PIN. PINs are 4 digits long. \n"
+		"I will pick an account, for which you can guess the PIN.%(br)PINs are 4 digits long. \n"
 		"Once you have entered a guess, I will be able to tell you how close your guess was. \n\n"
 		"\![embed,OnPINGuessing.Deco,not present,Dimmed/struck out] digits are not in the PIN at all. \n"
 		"\![embed,OnPINGuessing.Deco,present,Normal] digits are in the PIN, but in a different position. \n"

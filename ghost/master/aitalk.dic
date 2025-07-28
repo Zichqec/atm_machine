@@ -164,7 +164,7 @@ CriminalTalk : nonoverlap_pool
 	"Lockpicking is a valuable skill to have."
 	"Just remember: If you get caught, I am nothing but a normal ATM."
 	"An older woman came through the other day and was selecting options seemingly at random. I eventually gave up on trying to understand her request, and just output %(unyu)%((RAND(5) + 1) * 20). She seemed happy with that and drove away."
-	"I believe my weatherproofing is starting to wear off. Could you see to reinforcing it, please?"
+	"I believe my weatherproofing%(br)is starting to wear off. Could you see to reinforcing it, please?"
 	"I could stand to have a new set of key caps."
 	"We should add a prompt asking customers to leave a tip. It would be an easy way to make extra cash."
 	"Do you think anyone would notice if we added a processing fee for each transaction?"
