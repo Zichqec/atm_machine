@@ -208,7 +208,7 @@ OnPINGuessing.Help : all
 	}
 	else
 	{
-		"\![set,autoscroll,disable]\![use-robotext]"
+		"\![set,autoscroll,disable]\![use-chunktext]"
 		"ENTER THE CORRECT PIN FOR THE ACCOUNT. PINS ARE 4 DIGITS LONG.\n\n\w8\w8"
 		"\![embed,OnPINGuessing.Deco,not_present,DIMMED]/\![embed,OnPINGuessing.Deco,not_present,STRUCK OUT]"
 		" DIGITS ARE NOT IN THE PIN AT ALL.\n\n\w8\w8"
@@ -248,7 +248,7 @@ OnPINGuessing.Win
 	}
 	else
 	{
-		"\![use-robotext]"
+		"\![use-chunktext]"
 		--
 		"ACCESS GRANTED."
 		--
@@ -275,7 +275,7 @@ OnPINGuessing.Lose
 	}
 	else
 	{
-		"\![use-robotext]"
+		"\![use-chunktext]"
 		--
 		"INCORRECT PIN. MAXIMUM TRIES EXCEEDED. SECURITY LOCKOUT ACTIVATED FOR 1 HOUR."
 	}
@@ -295,7 +295,7 @@ OnPINGuessing.Quit
 	}
 	else
 	{
-		"\![use-robotext]"
+		"\![use-chunktext]"
 		--
 		"ENTRY CANCELED."
 	}
@@ -348,7 +348,7 @@ OnPINGuessing.DecoToggle
 	OnPINGuessing.Display
 }
 
-//This helps RoboText not break this display...
+//This helps ChunkText not break this display...
 OnPINGuessingButtons
 {
 	"\n\n\![quicksection,1]"

@@ -23,11 +23,11 @@ OnTranslate
 		_talk = REPLACE(_talk,"? ","?\w8 ") //Question mark
 		_talk = REPLACE(_talk,"! ","!\w8 ") //Exclamation point
 		_talk = REPLACE(_talk,"; ",";\w4 ") //Semicolon
-		_talk = REPLACE(_talk,"\n\n ","\n\n\w8\w8") //Linebreak - it's a little wibbly wobbly with RoboText...
+		_talk = REPLACE(_talk,"\n\n ","\n\n\w8\w8") //Linebreak - it's a little wibbly wobbly with ChunkText...
 	}
 	
-	//RoboText - has to happen AFTER AutoPause. Also, note to self, I changed the buttons in the pin guessing game to an embed tag so that they wouldn't get messed up by this... there are some extra considerations to be had when using this.
-	if "\![use-robotext]" _in_ _talk
+	//ChunkText - has to happen AFTER AutoPause. Also, note to self, I changed the buttons in the pin guessing game to an embed tag so that they wouldn't get messed up by this... there are some extra considerations to be had when using this.
+	if "\![use-chunktext]" _in_ _talk
 	{
 		_tags = SakuraScooper(_talk) //Get a list of all the tags
 		
@@ -37,7 +37,7 @@ OnTranslate
 			_talk = REPLACE(_talk,_tag,C_BYTE1,1)
 		}
 		
-		_talk = RoboText(_talk)
+		_talk = ChunkText(_talk)
 		
 		//Put tags back into place
 		foreach _tags; _tag
@@ -130,7 +130,7 @@ OnSpectrePlugin.Possession
 		}
 		else
 		{
-			"\![use-robotext]CONNECTION INTERRUPTED. RECONNECTING..."
+			"\![use-chunktext]CONNECTION INTERRUPTED. RECONNECTING..."
 		}
 	}
 }

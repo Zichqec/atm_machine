@@ -13,7 +13,7 @@ OnFirstBoot : all
 	if WalletInstalled; PluginInstallMessage
 	else
 	{
-		"\![use-robotext]WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
+		"\![use-chunktext]WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
 	}
 }
 
@@ -49,7 +49,7 @@ OnBoot
 		}
 		else //Normal boot
 		{
-			"\![use-robotext]WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
+			"\![use-chunktext]WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
 		}
 	}
 	else; PluginInstallMessage
@@ -74,7 +74,7 @@ OnClose
 	}
 	else
 	{
-		"\![use-robotext]"
+		"\![use-chunktext]"
 		--
 		if WalletInstalled
 		{

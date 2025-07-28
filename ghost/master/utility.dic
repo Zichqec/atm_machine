@@ -51,7 +51,7 @@ br
 //Arg 0 - The string to break up
 //Arg 1 - The pause (in ms) to add between each chunk of text. Optional, uses 75 if unspecified.
 //Arg 2 - The number of characters to use for each chunk of text. Optional, uses 3 if unspecified. If a string or a number less than or equal to 0 is specified, it will force it to 3 to avoid an infinite loop.
-RoboText
+ChunkText
 {
 	_input = _argv[0]
 	

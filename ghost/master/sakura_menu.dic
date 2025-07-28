@@ -143,7 +143,7 @@ OnRecordExpunged : all
 {
 	CriminalPoints = 0
 	
-	"\0\b[0]\s[0]\![use-robotext]"
+	"\0\b[0]\s[0]\![use-chunktext]"
 	
 	"RECORDS EXPUNGED."
 	"\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,-%(reference0),Criminal record expunged]\x\![raise,OnMenu]"
@@ -174,7 +174,7 @@ OnEmployeePassword
 		}
 		else
 		{
-			"\![use-robotext]LOGIN SUCCESSFUL. MAINTENANCE MODE ACTIVATED."
+			"\![use-chunktext]LOGIN SUCCESSFUL. MAINTENANCE MODE ACTIVATED."
 		}
 		--
 		"\x\![raise,OnMenu]"
@@ -182,7 +182,7 @@ OnEmployeePassword
 	else
 	{
 		MaintenanceMode = 0
-		"\![use-robotext]INCORRECT PASSWORD."
+		"\![use-chunktext]INCORRECT PASSWORD."
 		--
 		"\x\![raise,OnEmployeeLogin]"
 	}
@@ -190,7 +190,7 @@ OnEmployeePassword
 
 OnPasswordForgot : all
 {
-	"\0\b[0]\![use-robotext]\![open,configurationdialog,setup]\![close,inputbox,OnEmployeePassword]"
+	"\0\b[0]\![use-chunktext]\![open,configurationdialog,setup]\![close,inputbox,OnEmployeePassword]"
 	"PASSWORDS ARE BASED UPON THE USER ID (WITHOUT SPACES,%(br)CASE SENSITIVE) AND YEAR OF BIRTH.\n"
 	"EXAMPLE:\nJohn Doe, BORN 1/1/1970\nPASSWORD: JohnDoe1970\n\n"
 	"IF YOURS HAS BEEN SET IMPROPERLY, PLEASE REVIEW YOUR DETAILS AT THE BOTTOM OF THE EMPLOYEE PREFERENCES PAGE, CLOSE IT, THEN TRY AGAIN."
@@ -205,7 +205,7 @@ OnEmployeeLoginCancel : all
 OnExitMaintenanceMode : all
 {
 	MaintenanceMode = 0
-	"\0\b[0]\![use-robotext]"
+	"\0\b[0]\![use-chunktext]"
 	"MAINTENANCE MODE DEACTIVATED."
 	"\x\![raise,OnMenu]"
 }
