@@ -62,7 +62,7 @@ PINGuessing.CompleteGuess
 	//Mark wrong answers
 	for _i = 0; _i < 4; _i++
 	{
-		if _guessed_nums[_i] !_in_ _pin; _mask[_i] = "not present"
+		if _guessed_nums[_i] !_in_ _pin; _mask[_i] = "not_present"
 	}
 	
 	//Mark right answers
@@ -81,7 +81,7 @@ PINGuessing.CompleteGuess
 	_placed = IARRAY
 	for _i = 0; _i < 4; _i++
 	{
-		if _mask[_i] == "not present"; _final_placement ,= "not present"
+		if _mask[_i] == "not_present"; _final_placement ,= "not_present"
 		elseif _mask[_i] == "correct"; _final_placement ,= "correct"
 		else
 		{
@@ -102,7 +102,7 @@ PINGuessing.CompleteGuess
 			_array = ASEARCHEX(_guessed_nums[_i],_placed)
 			_total_processed_so_far = ARRAYSIZE(_array)
 			
-			if _total_processed_so_far + _total_already_correct >= _totalin_answer; _final_placement ,= "not present"
+			if _total_processed_so_far + _total_already_correct >= _totalin_answer; _final_placement ,= "not_present"
 			else; _final_placement ,= "present"
 		}
 		_placed ,= _guessed_nums[_i]
@@ -201,18 +201,21 @@ OnPINGuessing.Help : all
 	{
 		"I will pick an account, for which you can guess the PIN.%(br)PINs are 4 digits long. \n"
 		"Once you have entered a guess, I will be able to tell you how close your guess was. \n\n"
-		"\![embed,OnPINGuessing.Deco,not present,Dimmed/struck out] digits are not in the PIN at all. \n"
-		"\![embed,OnPINGuessing.Deco,present,Normal] digits are in the PIN, but in a different position. \n"
+		"\![embed,OnPINGuessing.Deco,not_present,Dimmed/struck out] digits are not in the PIN at all. \n\n"
+		"\![embed,OnPINGuessing.Deco,present,Normal] digits are in the PIN, but in a different position. \n\n"
 		"\![embed,OnPINGuessing.Deco,correct,Highlighted/underlined] digits are in the PIN and at that position. \n\n"
 		"Note that there may be duplicate digits."
 	}
 	else
 	{
-		"\_q\![no-autopause]\![set,autoscroll,disable]"
-		"ENTER THE CORRECT PIN FOR THE ACCOUNT. PINS ARE 4 DIGITS LONG.\n\n"
-		"\![embed,OnPINGuessing.Deco,not present,DIMMED/STRUCK OUT] DIGITS ARE NOT IN THE PIN AT ALL.\n"
-		"\![embed,OnPINGuessing.Deco,present,NORMAL] DIGITS ARE IN THE PIN, BUT IN A DIFFERENT POSITION.\n"
-		"\![embed,OnPINGuessing.Deco,correct,HIGHLIGHTED/UNDERLINED] DIGITS ARE IN THE PIN AND AT THAT POSITION.\n\n"
+		"\![set,autoscroll,disable]\![use-robotext]"
+		"ENTER THE CORRECT PIN FOR THE ACCOUNT. PINS ARE 4 DIGITS LONG.\n\n\w8\w8"
+		"\![embed,OnPINGuessing.Deco,not_present,DIMMED]/\![embed,OnPINGuessing.Deco,not_present,STRUCK OUT]"
+		" DIGITS ARE NOT IN THE PIN AT ALL.\n\n\w8\w8"
+		"\![embed,OnPINGuessing.Deco,present,NORMAL]"
+		" DIGITS ARE IN THE PIN, BUT IN A DIFFERENT POSITION.\n\n\w8\w8"
+		"\![embed,OnPINGuessing.Deco,correct,HIGHLIGHTED]/\![embed,OnPINGuessing.Deco,correct,UNDERLINED]"
+		" DIGITS ARE IN THE PIN AND AT THAT POSITION.\n\n\w8\w8"
 		"NOTE THAT THERE MAY BE DUPLICATE DIGITS."
 	}
 	
@@ -236,7 +239,7 @@ OnPINGuessing.Win
 	{
 		if _winnings == 0
 		{
-			"Indeed, %(PINGuessing.PIN) was the correct answer. Access to this account is now yours, however... it appears that there is nothing inside it. How unfortunate."
+			"Indeed, %(PINGuessing.PIN) was the correct answer. Access to this account is now yours. However... it appears that there is nothing inside it. How unfortunate."
 		}
 		else
 		{
@@ -245,14 +248,16 @@ OnPINGuessing.Win
 	}
 	else
 	{
-		"\_q\![no-autopause]"
+		"\![use-robotext]"
 		--
-		"ACCESS GRANTED. \nAMOUNT WITHDRAWN: %(_winnings) UNYU"
+		"ACCESS GRANTED."
+		--
+		" \n"
+		--
+		"AMOUNT WITHDRAWN: %(_winnings) UNYU"
 	}
 	--
-	"\n\n\![quicksection,1]"
-	--
-	"\![*]\q[Try another,OnPINGuessing.Start]  \![*]\q[Cancel,blank]"
+	"\![embed,OnPINGuessingButtons]"
 }
 
 OnPINGuessing.Lose
@@ -270,14 +275,12 @@ OnPINGuessing.Lose
 	}
 	else
 	{
-		"\_q\![no-autopause]"
+		"\![use-robotext]"
 		--
 		"INCORRECT PIN. MAXIMUM TRIES EXCEEDED. SECURITY LOCKOUT ACTIVATED FOR 1 HOUR."
 	}
 	--
-	"\n\n\![quicksection,1]"
-	--
-	"\![*]\q[Try another,OnPINGuessing.Start]  \![*]\q[Cancel,blank]"
+	"\![embed,OnPINGuessingButtons]"
 }
 
 OnPINGuessing.Quit
@@ -292,14 +295,12 @@ OnPINGuessing.Quit
 	}
 	else
 	{
-		"\_q\![no-autopause]"
+		"\![use-robotext]"
 		--
 		"ENTRY CANCELED."
 	}
 	--
-	"\n\n\![quicksection,1]"
-	--
-	"\![*]\q[Try another,OnPINGuessing.Start]  \![*]\q[Cancel,blank]"
+	"\![embed,OnPINGuessingButtons]"
 }
 
 OnPINGuessing.Deco
@@ -316,7 +317,7 @@ OnPINGuessing.Deco
 			_output = "\f[underline,1]" + _output + "\f[underline,default]"
 		}
 	}
-	elseif reference0 == "not present"
+	elseif reference0 == "not_present"
 	{
 		if PINGuessing.DecoStyle == "color" || PINGuessing.DecoStyle == "both"
 		{
@@ -345,4 +346,12 @@ OnPINGuessing.DecoToggle
 		PINGuessing.DecoStyle = "color"
 	}
 	OnPINGuessing.Display
+}
+
+//This helps RoboText not break this display...
+OnPINGuessingButtons
+{
+	"\n\n\![quicksection,1]"
+	--
+	"\![*]\__q[OnPINGuessing.Start]Try another\__q  \![*]\__q[blank]Cancel\__q"
 }

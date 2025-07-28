@@ -10,11 +10,10 @@ OnFirstBoot : all
 	PINGuessing.DecoStyle = "both"
 	
 	"\1\s[-1]\0\b[0]\s[0]"
-	"\_q\![no-autopause]"
 	if WalletInstalled; PluginInstallMessage
 	else
 	{
-		"WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
+		"\![use-robotext]WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
 	}
 }
 
@@ -50,9 +49,7 @@ OnBoot
 		}
 		else //Normal boot
 		{
-			"\_q\![no-autopause]"
-			--
-			"WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
+			"\![use-robotext]WELCOME TO UNYU BANK. PLEASE INSERT YOUR DEBIT CARD TO GET STARTED."
 		}
 	}
 	else; PluginInstallMessage
@@ -77,7 +74,7 @@ OnClose
 	}
 	else
 	{
-		"\_q\![no-autopause]"
+		"\![use-robotext]"
 		--
 		if WalletInstalled
 		{

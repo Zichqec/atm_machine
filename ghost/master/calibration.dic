@@ -51,9 +51,7 @@ OnCalibrationEnd
 	}
 	else
 	{
-		"\_q\![no-autopause]"
-		--
-		"CALIBRATION COMPLETE. %(reference4) UNYU EARNED."
+		"\![use-robotext]CALIBRATION COMPLETE. %(reference4) UNYU EARNED."
 	}
 	--
 	if reference4 > 0; "\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,%(reference4),Wage earned]"

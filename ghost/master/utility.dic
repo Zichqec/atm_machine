@@ -45,6 +45,32 @@ br
 	else; " "
 }
 
+//Take a dialogue string and output it as chunks of X number of characters at a time. Gives the text a more robotic feel!
+//Note that this does not work well if there are tags in the dialogue. Plain strings only! If you need to use it in a dialogue with tags, consider combining it with my function SakuraScooper.
+//Note also that this does not always play nice with AutoPause, depending where the chunks fall. Maybe it is better to run AutoPause first...
+//Arg 0 - The string to break up
+//Arg 1 - The pause (in ms) to add between each chunk of text. Optional, uses 75 if unspecified.
+//Arg 2 - The number of characters to use for each chunk of text. Optional, uses 3 if unspecified. If a string or a number less than or equal to 0 is specified, it will force it to 3 to avoid an infinite loop.
+RoboText
+{
+	_input = _argv[0]
+	
+	if _argv[1] == ""; _argv[1] = 75
+	_pause = "\_w[%(_argv[1])]"
+	
+	_piece = 3
+	if _argv[2] != ""; _piece = _argv[2]
+	if _piece <= 0 || GETTYPE(_piece) != 1; _piece = 3
+	
+	_output = ""
+	for _i = 0; _i < STRLEN(_input); _i += _piece
+	{
+		_output += SUBSTR(_input,_i,_piece)
+		_output += _pause
+	}
+	"\![quicksection,1]" + _output + "\![quicksection,0]"
+}
+
 PluginInstallMessage
 {
 	"WELCOME TO UNYU BANK.\nSIGN UP FOR A BANK ACCOUNT BY INSTALLING THE \_a[https://github.com/nikolat/wallet_of_unyu/releases]WALLET OF UNYU\_a PLUGIN.\nTHIS ATM WILL NOT FUNCTION WITHOUT THE PLUGIN.\nIF THE PLUGIN IS NO LONGER AVAILABLE, PLEASE CONTACT THE ATM'S \_a[https://ukagaka.zichqec.com/]ADMINISTRATOR\_a FOR HELP."
@@ -82,4 +108,204 @@ ghostver
 BalloonIsOpen
 {
 	"balloon" _in_ status
+}
+
+//Written by Zichqec https://ukagaka.zichqec.com/
+//Version 1.0.0
+
+/*
+This function will return an array of all recognized sakurascript tags in a script. This includes tags like \t, \*, \_q, \__q, \![raise,OnFunction,arbitrary,info], %*, %property[arbitrary.property], and even nested tags like \q[Fix the clock,script:"\![execute,SNTP]"].
+It takes one argument, which is the script you want it to process.
+
+This is very useful for instances where you want to remove tags from a script, add some processing to the script, and then insert them back in. Like so:
+
+OnTranslate
+{
+	_talk = reference0
+	
+	_tags = SakuraScooper(_talk) //Get a list of all the tags
+	
+	//Remove tags and replace with C_BYTE1 (you might want to do something more unique depending on your usage)
+	foreach _tags; _tag
+	{
+		_talk = REPLACE(_talk,_tag,C_BYTE1,1)
+	}
+	
+	//Some sort of script processing...
+	
+	//Put tags back into place
+	foreach _tags; _tag
+	{
+		_talk = REPLACE(_talk,C_BYTE1,_tag,1)
+	}
+	
+	_talk
+}
+
+Please note that scripts with many tags in them may cause some lag. Use wisely.
+*/
+SakuraScooper
+{
+	_input = _argv[0]
+	_scooped_tags = IARRAY
+
+	_no_underscores = ("!","&","*","+","-","0","1","4","5","6","7","8","C","a","b","c","e","f","i","j","m","n","p","q","s","t","v","w","x","z")
+	_one_underscore = ("!","+","?","V","a","b","l","m","n","q","s","v","w")
+	_two_underscores = ("b","c","q","t","u","v","w")
+	
+	_percent = ("month","day","hour","minute","second","username","selfname","selfname2","keroname","screenwidth","screenheight","exh","et","wronghour","ms","mz","ml","mc","mh","mt","me","mp","m?","dms","lastghostname","lastobjectname","*","property")
+	
+	_must_have_brackets = ("\!","\&","\8","\__b","\__u","\__w","\_b","\_l","\_m","\_v","\_w","\f","\i","\j","\m","\q")
+	_may_have_brackets = ("\__q","\_a","\_s","\b","\c","\n","\p","\s","\x")
+	_may_have_additional = ("\b","\i","\s") //,"\w")
+
+	_has_percent = 0
+	if "%" _in_ _input; _has_percent = 1
+	
+	_found_all = 0
+	_pos = -1
+	while _found_all != 1 //Loop through to find all tags
+	{
+		_pos_slash = STRSTR(_input,"\",_pos + 1)
+		
+		if _has_percent //Don't want to be checking twice if we don't have to be...
+		{
+			_pos_percent = STRSTR(_input,"%",_pos + 1)
+			
+			if _pos_percent != -1 && _pos_percent < _pos_slash; _pos = _pos_percent
+			else; _pos = _pos_slash
+		}
+		else; _pos = _pos_slash
+		
+		
+		if _pos == -1; {_found_all = 1; break} //seems redundant??
+		
+		_underscores = 0
+		_tag = ""
+		_has_brackets = 0
+		
+		
+		_checkarray = IARRAY
+		
+		//Determine how many underscores and what tag we have here
+		if SUBSTR(_input,_pos,1) == "%"
+		{
+			if SUBSTR(_input,_pos,9) == "%property"; _has_brackets = 1
+			_checkarray = _percent
+		}
+		else
+		{
+			_two_chars = SUBSTR(_input,_pos,2) //I was using this 3 times, so...
+			if _two_chars == "\\"; continue
+			elseif _two_chars == "\%"; continue
+			elseif SUBSTR(_input,_pos,3) == "\__"
+			{
+				_underscores = 2
+				_tag = "\__"
+				
+			}
+			elseif _two_chars == "\_"
+			{
+				_underscores = 1
+				_tag = "\_"
+			}
+			else
+			{
+				_tag = "\"
+			}
+
+			if _underscores == 2; _checkarray = _two_underscores
+			elseif _underscores == 1; _checkarray = _one_underscore
+			else; _checkarray = _no_underscores
+			
+		}
+		
+		//Validate tag
+		_check = SUBSTR(_input,_pos + _underscores + 1,1)
+		
+		if ASEARCH(_check,_checkarray) == -1; continue
+		
+		//Check if it needs a bracket to be valid
+		_tag += SUBSTR(_input,_pos + _underscores + 1,1)
+		_next_char = SUBSTR(_input,_pos + _underscores + 2,1)
+		_end_pos = 0
+		
+		if ASEARCH(_tag,_must_have_brackets) != -1
+		{
+			if _next_char == "["; _has_brackets = 1
+			else; continue
+		}
+		elseif ASEARCH(_tag,_may_have_brackets) != -1
+		{
+			if _next_char == "["; _has_brackets = 1
+			elseif ASEARCH(_tag,_may_have_additional) != -1
+			{
+				if ISINTSTR(_next_char); {_end_pos = _pos + 2}
+				else; _end_pos = _pos +  1
+			}
+			else
+			{
+				_end_pos = _pos + 1
+			}
+		}
+		elseif _tag == "\+" //:unamused:
+		{
+			if _next_char == "+"; _end_pos = _pos + 2
+			else; _end_pos = _pos + 1
+		}
+		elseif _tag == "\w" //:deargodhelpme:
+		{
+			if ISINTSTR(_next_char); {_end_pos = _pos + 2}
+			else; _end_pos = _pos + 1
+		}
+		else
+		{
+			_end_pos = _pos + 1
+		}
+		
+		_startpos = _pos //This is because of nested tags... have to skip them
+		//If it has brackets, grab the entire bracket section
+		if _has_brackets
+		{
+			
+			_end_found = 0
+			_strpos = _pos + _underscores + 1
+			_quotes_open = 0
+			_escape_active = 0
+			
+			while !_end_found
+			{
+				if _strpos > STRLEN(_input); break
+				
+				_cur = SUBSTR(_input,_strpos,1)
+				
+				if _cur == '"'
+				{
+					if _quotes_open == 0; _quotes_open = 1
+					else; _quotes_open = 0
+				}
+				elseif _cur == "\"
+				{
+					_pos = _strpos
+					if _escape_active == 1; _escape_active = 0
+					else; _escape_active = 2 //this will be 1 on the next go around
+				}
+				elseif _cur == "]"
+				{
+					if _escape_active == 0 && _quotes_open == 0
+					{
+						_end_pos = _strpos - _underscores
+						_end_found = 1
+						break
+					}
+				}
+				
+				if _escape_active > 0; _escape_active--
+				_strpos++
+			}
+		}
+		
+		_scooped_tags ,= SUBSTR(_input,_startpos,(_end_pos + _underscores) - _startpos + 1)
+	}
+	_scooped_tags
 }

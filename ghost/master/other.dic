@@ -23,6 +23,27 @@ OnTranslate
 		_talk = REPLACE(_talk,"? ","?\w8 ") //Question mark
 		_talk = REPLACE(_talk,"! ","!\w8 ") //Exclamation point
 		_talk = REPLACE(_talk,"; ",";\w4 ") //Semicolon
+		_talk = REPLACE(_talk,"\n\n ","\n\n\w8\w8") //Linebreak - it's a little wibbly wobbly with RoboText...
+	}
+	
+	//RoboText - has to happen AFTER AutoPause. Also, note to self, I changed the buttons in the pin guessing game to an embed tag so that they wouldn't get messed up by this... there are some extra considerations to be had when using this.
+	if "\![use-robotext]" _in_ _talk
+	{
+		_tags = SakuraScooper(_talk) //Get a list of all the tags
+		
+		//Remove tags and replace with C_BYTE1
+		foreach _tags; _tag
+		{
+			_talk = REPLACE(_talk,_tag,C_BYTE1,1)
+		}
+		
+		_talk = RoboText(_talk)
+		
+		//Put tags back into place
+		foreach _tags; _tag
+		{
+			_talk = REPLACE(_talk,C_BYTE1,_tag,1)
+		}
 	}
 	
 	//no tofus
@@ -88,7 +109,6 @@ On_homeurl
 	"https://raw.githubusercontent.com/Zichqec/atm_machine/main/"
 }
 
-
 OnSpectrePlugin.ConfirmCalibration
 {
 	"\![raiseplugin,Spectre,OnCustomCalibrationConfirm,__NO_EXPRESSIONS__]"
@@ -110,7 +130,7 @@ OnSpectrePlugin.Possession
 		}
 		else
 		{
-			"\_qCONNECTION INTERRUPTED. RECONNECTING..."
+			"\![use-robotext]CONNECTION INTERRUPTED. RECONNECTING..."
 		}
 	}
 }

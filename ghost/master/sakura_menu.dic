@@ -199,9 +199,7 @@ OnEmployeePassword
 		}
 		else
 		{
-			"\![no-autopause]\_q"
-			--
-			"LOGIN SUCCESSFUL. MAINTENANCE MODE ACTIVATED."
+			"\![use-robotext]LOGIN SUCCESSFUL. MAINTENANCE MODE ACTIVATED."
 		}
 		--
 		"\x\![raise,OnMenu]"
@@ -209,18 +207,19 @@ OnEmployeePassword
 	else
 	{
 		MaintenanceMode = 0
-		"INCORRECT PASSWORD.\x\![raise,OnEmployeeLogin]"
+		"\![use-robotext]INCORRECT PASSWORD."
+		--
+		"\x\![raise,OnEmployeeLogin]"
 	}
 }
 
 OnPasswordForgot : all
 {
-	"\0\b[0]\_q\![open,configurationdialog,setup]\![close,inputbox,OnEmployeePassword]"
-	"\![no-autopause]"
-	"PASSWORDS ARE BASED UPON THE USER ID (WITHOUT SPACES, CASE SENSITIVE) AND YEAR OF BIRTH.\n"
+	"\0\b[0]\![use-robotext]\![open,configurationdialog,setup]\![close,inputbox,OnEmployeePassword]"
+	"PASSWORDS ARE BASED UPON THE USER ID (WITHOUT SPACES,%(br)CASE SENSITIVE) AND YEAR OF BIRTH.\n"
 	"EXAMPLE:\nJohn Doe, BORN 1/1/1970\nPASSWORD: JohnDoe1970\n\n"
-	"IF YOURS HAS BEEN SET IMPROPERLY, PLEASE REVIEW YOUR DETAILS AT THE BOTTOM OF THE EMPLOYEE PREFERENCES PAGE, CLOSE IT, THEN TRY AGAIN.\x"
-	"\![raise,OnEmployeeLogin]"
+	"IF YOURS HAS BEEN SET IMPROPERLY, PLEASE REVIEW YOUR DETAILS AT THE BOTTOM OF THE EMPLOYEE PREFERENCES PAGE, CLOSE IT, THEN TRY AGAIN."
+	"\x\![raise,OnEmployeeLogin]"
 }
 
 OnEmployeeLoginCancel : all
@@ -228,8 +227,10 @@ OnEmployeeLoginCancel : all
 	"\C\![close,inputbox,OnEmployeePassword]\![raise,OnMenu]"
 }
 
-OnExitMaintenanceMode
+OnExitMaintenanceMode : all
 {
 	MaintenanceMode = 0
-	"\0\b[0]\_qMAINTENANCE MODE DEACTIVATED.\x\![raise,OnMenu]"
+	"\0\b[0]\![use-robotext]"
+	"MAINTENANCE MODE DEACTIVATED."
+	"\x\![raise,OnMenu]"
 }

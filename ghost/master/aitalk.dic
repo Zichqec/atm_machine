@@ -6,14 +6,14 @@ OnAiTalk
 		if CHAIN.IDName == ""
 		{
 			if CriminalAction; LastTalk += CriminalTalk
-			else; LastTalk += "\_q\![no-autopause]" + RandomTalk + "\_w[5000] "
+			else; LastTalk += "\![use-robotext]" + RandomTalk + "\_w[5000] "
 		}
 		else
 		{
 			LastTalk += ChainTalk
 		}
 	}
-	else; LastTalk += "\_q\![no-autopause]" + PluginInstallMessage + "\_w[5000] "
+	else; LastTalk += "\![use-robotext]" + PluginInstallMessage + "\_w[5000] "
 	LastTalk
 }
 
