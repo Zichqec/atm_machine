@@ -13,7 +13,12 @@ OnMenu : all
 	
 	"\f[align,center]——————— Promotional ————————%(newline)\n\f[align,default]"
 	"\![*]\q[Learn more,OnAiTalk]"
-	if LastTalk != ""; "\n\![*]\__q[OnLastTalk]Repeat information\__q"
+	"\n"
+	switch LastTalk == ""
+	{
+		"\![*]\__q[OnLastTalk]Repeat information\__q"
+		"\![*]\f[color,disable]Repeat information\f[color,default]"
+	}
 	
 	"\n\![*]Rate of information:\n"
 	_times = ("Off,0","1m,60","3m,180","5m,300","10m,600","15m,900")
