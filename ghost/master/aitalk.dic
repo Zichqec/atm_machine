@@ -65,7 +65,7 @@ RandomTalk : nonoverlap_pool
 	"MAKE YOUR MONEY WORK FOR YOU. GET A SAVINGS ACCOUNT WITH UNYU BANK."
 	
 	_years = year - 2024
-	if month > 4 || (month == 4 && day >= 9); _years--
+	if month < 4 || (month == 4 && day <= 9); _years--
 	_s = "S"; if _years == 1; _s = ""
 	"UNYU BANK HAS BEEN #1 IN CUSTOMER SATISFACTION FOR%(br)%(_years) YEAR%(_s)." //This will get better with time
 	
