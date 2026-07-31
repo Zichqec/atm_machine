@@ -4,6 +4,6 @@ And then April Fools' happened and I expanded it. Now it has dialogue, you can c
 
 I DO NOT ENCOURAGE ACTUAL CRIMES. Also, much of the "financial advice" in this ghost is BS, please do not take any of it as actual advice. It's all based off of bank advertising guff!
 
-Plugin: https://github.com/nikolat/wallet_of_unyu
-Website: https://zichqec.github.io/atm_machine/
+Plugin (required): https://github.com/nikolat/wallet_of_unyu
+Website (for free UNYU): https://zichqec.github.io/atm_machine/
 Original website (ATM Machine may not work with this if multiple ghosts are open): https://nikolat.github.io/wallet_of_unyu/
