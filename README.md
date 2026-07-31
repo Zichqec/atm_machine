@@ -1,9 +1,14 @@
-A ghost originally made to work with the Wallet of UNYU plugin. Specifically, to make it possible to click the button to recieve free UNYU again, since it is no longer possible with the plugin alone.
+# atm_machine
+ ATM Machine for Wallet of Unyu Plugin
 
-And then April Fools' happened and I expanded it. Now it has dialogue, you can commit fake crimes, and you can also play the world's most boring minigame. Fun for the whole family!
+Make sure you have the [Wallet of Unyu plugin](https://github.com/nikolat/wallet_of_unyu) installed.
 
-I DO NOT ENCOURAGE ACTUAL CRIMES. Also, much of the "financial advice" in this ghost is BS, please do not take any of it as actual advice. It's all based off of bank advertising guff!
+Go to the [website](https://zichqec.github.io/atm_machine/).
 
-Plugin (required): https://github.com/nikolat/wallet_of_unyu
-Website (for free UNYU): https://zichqec.github.io/atm_machine/
-Original website (ATM Machine may not work with this if multiple ghosts are open): https://nikolat.github.io/wallet_of_unyu/
+Click button while the ghost is open.
+
+Get UNYU.
+
+That's it that's the ghost.
+
+Or it was, until April Fools' Day 2024 happened. Now there's dialogue, minigames, and crime!
