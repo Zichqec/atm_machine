@@ -104,12 +104,6 @@ OnBalloonMenu : all
 	"\![unlock,balloonrepaint]"
 }
 
-OnTest
-{
-	_array = ('Sakura','Mayura','Nekoko') // Assign a generic array
-	ARRAYSIZE( _array ) // The number of elements "3" is output
-}
-
 OnBalloonColorChange
 {
 	BalloonColor = TOINT(reference0)
