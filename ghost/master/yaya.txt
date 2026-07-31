@@ -11,6 +11,7 @@ dic, aitalk.dic
 dic, atm_functions.dic
 dic, boot.dic
 dic, calibration.dic
+dic, commu.dic
 dic, mouse.dic
 dic, meta.dic
 dic, other.dic

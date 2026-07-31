@@ -1,0 +1,32 @@
+OnNeedlePoke : all
+{
+	"\0\b[0]\s[0]\_q"
+	"-5 UNYU\n\![embed,OnNeedleUnyu]"
+	"\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,-5,Poked by Needle]"
+}
+
+OnSpectrePlugin.ConfirmCalibration
+{
+	"\![raiseplugin,Spectre,OnCustomCalibrationConfirm,__NO_EXPRESSIONS__]"
+}
+
+OnSpectrePlugin.Possession
+{
+	if RAND(4) == 0
+	{
+		"\0\b[0]\s[0]"
+		--
+		if CriminalAction
+		{
+			"Apologies, I had a brief outage. Has my system been hacked?"
+			"I believe there is an intruder on the network. Peculiar..."
+			"Did we have a power outage? I felt something strange."
+			"Pardon, I lost awareness for a moment. If you attempted anything while I was out, please try again."
+
+		}
+		else
+		{
+			"\![use-chunktext]CONNECTION INTERRUPTED. RECONNECTING..."
+		}
+	}
+}

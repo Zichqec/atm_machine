@@ -109,32 +109,6 @@ On_homeurl
 	"https://raw.githubusercontent.com/Zichqec/atm_machine/main/"
 }
 
-OnSpectrePlugin.ConfirmCalibration
-{
-	"\![raiseplugin,Spectre,OnCustomCalibrationConfirm,__NO_EXPRESSIONS__]"
-}
-
-OnSpectrePlugin.Possession
-{
-	if RAND(4) == 0
-	{
-		"\0\b[0]\s[0]"
-		--
-		if CriminalAction
-		{
-			"Apologies, I had a brief outage. Has my system been hacked?"
-			"I believe there is an intruder on the network. Peculiar..."
-			"Did we have a power outage? I felt something strange."
-			"Pardon, I lost awareness for a moment. If you attempted anything while I was out, please try again."
-
-		}
-		else
-		{
-			"\![use-chunktext]CONNECTION INTERRUPTED. RECONNECTING..."
-		}
-	}
-}
-
 
 //—————————————————————————————— Right click menu links ——————————————————————————————
 

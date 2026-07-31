@@ -5,13 +5,6 @@ ExternalEvent.OnGetMoneySample : all
 	"\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,1,Thanks for clicking!]"
 }
 
-OnNeedlePoke : all
-{
-	"\0\b[0]\s[0]\_q"
-	"-5 UNYU\n\![embed,OnNeedleUnyu]"
-	"\![raiseplugin,c58b6320-caf8-11ed-a901-0800200c9a66,OnWalletOfUnyu,set,-5,Poked by Needle]"
-}
-
 OnWalletOfUnyu
 {
 	balance = TOINT(reference1)
