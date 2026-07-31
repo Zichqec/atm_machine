@@ -162,7 +162,6 @@ On_getaistateex : all
 	{
 		"RandomTalk,CriminalTalk,Both"
 	}
-	
 }
 
 username

@@ -1,8 +1,5 @@
 OnFirstBoot : all
 {
-	//If you add variables, make sure to initialize them here!
-	//Note - I haven't added anything about username or pronouns here because it's all handled by the SSP prefs
-	stroke = 0
 	LastTalk = ""
 	CriminalPoints = 0
 	MaintenenceMode = 0
@@ -10,6 +7,7 @@ OnFirstBoot : all
 	PINGuessing.DecoStyle = "both"
 	
 	"\1\s[-1]\0\b[0]\s[0]"
+	
 	if !WalletInstalled; PluginInstallMessage
 	else
 	{
@@ -19,9 +17,7 @@ OnFirstBoot : all
 
 OnInitialize
 {
-	//if !ISVAR("NewVariable"); NewVariable = 0
-	
-	if reference0 != "reload" //For things you want to reset EXCEPT when just reloading; a convenience for you the dev, basically
+	if reference0 != "reload" //EXCEPT when just reloading
 	{
 		LastTalk = ""
 		PINGuessing.Active = 0
